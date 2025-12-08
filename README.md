@@ -1,11 +1,41 @@
-<div align="center">
+# Каталог Кондиционеров Сочи
 
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
+Этот проект создан с использованием React, TypeScript и Vite.
 
-  <h1>Built with AI Studio</h2>
+## Инструкция по установке и запуску
 
-  <p>The fastest path from prompt to production with Gemini.</p>
+1.  Убедитесь, что у вас установлен **Node.js**.
+2.  Откройте терминал в папке проекта.
+3.  Установите зависимости:
+    ```bash
+    npm install
+    ```
+4.  Запустите локальный сервер для разработки:
+    ```bash
+    npm run dev
+    ```
 
-  <a href="https://aistudio.google.com/apps">Start building</a>
+## Как опубликовать на GitHub Pages
 
-</div>
+Чтобы сайт стал доступен в интернете бесплатно через GitHub:
+
+1.  **Создайте репозиторий** на GitHub (назовите его, например, `sochi-ac`).
+2.  Инициализируйте Git в папке проекта:
+    ```bash
+    git init
+    git add .
+    git commit -m "Initial commit"
+    ```
+3.  Свяжите папку с вашим репозиторием (замените ссылку на свою):
+    ```bash
+    git remote add origin https://github.com/ВАШ_НИК/sochi-ac.git
+    ```
+4.  **Важно:** Откройте файл `vite.config.ts` и раскомментируйте строку `base`, указав название репозитория:
+    ```ts
+    base: '/sochi-ac/',
+    ```
+5.  Запустите команду деплоя (она сама соберет проект и отправит в ветку gh-pages):
+    ```bash
+    npm run deploy
+    ```
+6.  Через пару минут ваш сайт будет доступен по адресу: `https://ВАШ_НИК.github.io/sochi-ac/`
