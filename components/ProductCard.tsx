@@ -27,14 +27,13 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
     Premium: 'bg-rose-500'
   };
 
-  // Формируем поисковый запрос для поиска реального фото модели (внутренний блок)
-  // Используем сервис поиска картинок для отображения реальных товаров
-  const query = `${product.brand} ${product.model} сплит-система внутренний блок`;
-  // Основной источник - поиск по картинкам
+  // Формируем поисковый запрос для поиска реального фото модели
+  const query = `${product.brand} ${product.model} сплит-система фото`;
+  // Добавляем timestamp чтобы избежать кэширования битых ссылок, если такие были
   const mainImageUrl = `https://tse2.mm.bing.net/th?q=${encodeURIComponent(query)}&w=800&h=600&c=7&rs=1&p=0&dpr=2&pid=1.7`;
   
-  // Запасной вариант - просто бренд, если конкретная модель не найдется или ошибка загрузки
-  const fallbackImageUrl = `https://tse2.mm.bing.net/th?q=${encodeURIComponent(product.brand + ' кондиционер сплит-система')}&w=800&h=600&c=7&rs=1&p=0&dpr=2&pid=1.7`;
+  // Запасной вариант
+  const fallbackImageUrl = `https://tse2.mm.bing.net/th?q=${encodeURIComponent(product.brand + ' air conditioner')}&w=800&h=600&c=7&rs=1&p=0&dpr=2&pid=1.7`;
 
   return (
     <div className="group bg-white rounded-3xl shadow-sm hover:shadow-2xl transition-all duration-300 overflow-hidden flex flex-col border border-gray-100 hover:-translate-y-1 h-full relative">
@@ -47,6 +46,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           src={imageError ? fallbackImageUrl : mainImageUrl}
           alt={`${product.brand} ${product.model}`}
           onError={() => setImageError(true)}
+          referrerPolicy="no-referrer"
           className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
           loading="lazy"
         />

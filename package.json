@@ -1,8 +1,9 @@
 {
-  "name": "sochi-ac-catalog",
+  "name": "sochi-ac",
   "private": true,
   "version": "1.0.0",
   "type": "module",
+  "homepage": "https://MaxArts1.github.io/sochi-ac/",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
