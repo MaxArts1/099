@@ -1,11 +1,19 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { PRODUCTS, WHATSAPP_PHONE, EXTERNAL_SITE_URL } from './constants';
 import { Segment } from './types';
 import ProductCard from './components/ProductCard';
 
+const ITEMS_PER_PAGE = 8; // Показываем по 8 товаров за раз для быстрой загрузки
+
 const App: React.FC = () => {
   const [activeFilter, setActiveFilter] = useState<Segment | 'all'>('all');
   const [searchQuery, setSearchQuery] = useState('');
+  const [visibleCount, setVisibleCount] = useState(ITEMS_PER_PAGE);
+
+  // Сбрасываем количество видимых товаров при смене фильтров
+  useEffect(() => {
+    setVisibleCount(ITEMS_PER_PAGE);
+  }, [activeFilter, searchQuery]);
 
   const filteredProducts = useMemo(() => {
     return PRODUCTS.filter(product => {
@@ -16,6 +24,13 @@ const App: React.FC = () => {
       return matchFilter && matchSearch;
     });
   }, [activeFilter, searchQuery]);
+
+  const visibleProducts = filteredProducts.slice(0, visibleCount);
+  const hasMore = visibleCount < filteredProducts.length;
+
+  const handleShowMore = () => {
+    setVisibleCount(prev => prev + ITEMS_PER_PAGE);
+  };
 
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col">
@@ -131,11 +146,22 @@ const App: React.FC = () => {
         </div>
 
         {/* Product Grid */}
-        {filteredProducts.length > 0 ? (
-             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-16">
-                {filteredProducts.map(product => (
-                    <ProductCard key={product.id} product={product} />
-                ))}
+        {visibleProducts.length > 0 ? (
+             <div className="flex flex-col items-center mb-16">
+                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 w-full mb-8">
+                    {visibleProducts.map(product => (
+                        <ProductCard key={product.id} product={product} />
+                    ))}
+                 </div>
+                 
+                 {hasMore && (
+                     <button 
+                        onClick={handleShowMore}
+                        className="bg-white border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white px-8 py-3 rounded-full font-bold transition-all shadow-md hover:shadow-xl active:scale-95"
+                     >
+                        Показать еще ({filteredProducts.length - visibleCount})
+                     </button>
+                 )}
              </div>
         ) : (
             <div className="text-center py-24 bg-white rounded-3xl border-2 border-dashed border-gray-200 mb-16">

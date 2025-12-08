@@ -8,6 +8,7 @@ interface ProductCardProps {
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const [imageError, setImageError] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   const getSavingPercent = (segment: string, price: number) => {
     const marketAvg: Record<string, number> = { 'Budget': 28000, 'Basic': 48000, 'Middle': 75000, 'Premium': 180000 };
@@ -41,13 +42,21 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       <div className={`${segmentColors[product.segment] || 'bg-gray-500'} h-1.5 w-full`} />
       
       {/* Image Area */}
-      <div className="relative h-64 w-full bg-white p-4 overflow-hidden border-b border-gray-50 flex items-center justify-center">
+      <div className="relative h-64 w-full bg-white p-4 overflow-hidden border-b border-gray-50 flex items-center justify-center min-h-[250px]">
+        {/* Loading Spinner for Image */}
+        {!imageLoaded && !imageError && (
+             <div className="absolute inset-0 flex items-center justify-center bg-gray-50">
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
+             </div>
+        )}
+
         <img 
           src={imageError ? fallbackImageUrl : mainImageUrl}
           alt={`${product.brand} ${product.model}`}
           onError={() => setImageError(true)}
+          onLoad={() => setImageLoaded(true)}
           referrerPolicy="no-referrer"
-          className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
+          className={`w-full h-full object-contain group-hover:scale-105 transition-all duration-500 ${!imageLoaded ? 'opacity-0' : 'opacity-100'}`}
           loading="lazy"
         />
         
