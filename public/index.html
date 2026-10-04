@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SuperMaster — мастера на час</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>⚡</text></svg>">
+  <!-- Fonts: Plus Jakarta Sans (body) + Unbounded (display) + Material Symbols -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Unbounded:wght@600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+  <!-- GSAP + ScrollTrigger (premium animations, нативный скролл) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- ===== Плавающая стеклянная шапка ===== -->
+  <header class="site-header">
+    <div class="header-inner container" style="padding:8px 10px 8px 20px;max-width:1120px;margin:0 auto;">
+      <a class="logo" href="#" data-nav="home">
+        <span class="logo-icon">⚡</span>
+        <span class="font-display">Super<strong>Master</strong></span>
+      </a>
+      <nav class="main-nav">
+        <button class="nav-link active" data-nav="catalog">Услуги</button>
+        <button class="nav-link" data-nav="masters">Мастера</button>
+        <button class="nav-link" data-nav="orders">Мои заказы <span id="orders-count" class="count-badge" hidden>0</span></button>
+      </nav>
+      <div class="header-right">
+        <div class="city-select">
+          <span class="material-symbols-outlined" style="font-size:16px;">location_on</span>
+          <select id="header-city" title="Город"></select>
+        </div>
+        <button class="theme-toggle" id="theme-toggle" title="Тёмная тема" aria-label="Тёмная тема">
+          <span class="material-symbols-outlined" style="font-size:18px;">dark_mode</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ===== HERO ===== -->
+    <section id="home" class="hero">
+      <div class="container hero-inner">
+        <span class="hero-badge"><span class="material-symbols-outlined" style="font-size:14px;">verified</span> Проверенные мастера · гарантия до 2 лет</span>
+        <h1 class="font-display">Найдите мастера <span class="accent">за 5 минут</span></h1>
+        <p class="hero-sub">Ремонт, электрика, сантехника, уборка, сборка мебели и ремонт техники. Прозрачные цены, бронирование онлайн и оплата на сайте.</p>
+        <div class="search-bar">
+          <span class="material-symbols-outlined search-icon">search</span>
+          <input id="search-input" type="search" placeholder="Что нужно сделать? Например, укладка плитки" autocomplete="off">
+          <button id="search-btn" class="btn btn-amber">Найти</button>
+        </div>
+        <div class="hero-stats">
+          <div class="stat-card">
+            <div class="stat-icon" style="background:rgba(254,152,0,0.2);color:#ffb84d;"><span class="material-symbols-outlined">verified_user</span></div>
+            <div><span class="stat-number">2500+</span><span class="stat-label">выполнено заказов</span></div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon" style="background:rgba(26,86,219,0.25);color:#7aa2ff;"><span class="material-symbols-outlined">group</span></div>
+            <div><span class="stat-number">320+</span><span class="stat-label">проверенных мастеров</span></div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon" style="background:rgba(31,162,104,0.2);color:#4ade80;"><span class="material-symbols-outlined">schedule</span></div>
+            <div><span class="stat-number">24/7</span><span class="stat-label">приём заявок</span></div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon" style="background:rgba(255,255,255,0.12);color:#fff;"><span class="material-symbols-outlined">workspace_premium</span></div>
+            <div><span class="stat-number">до 2 лет</span><span class="stat-label">гарантия на работы</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Категории ===== -->
+    <section class="section">
+      <div class="container">
+        <div class="section-header">
+          <h2>Категории услуг</h2>
+          <p class="section-sub">Выберите направление — найдём лучшего мастера</p>
+        </div>
+        <div id="category-grid" class="category-grid"></div>
+      </div>
+    </section>
+
+    <!-- ===== CTA Banner ===== -->
+    <div class="cta-banner">
+      <div class="cta-content">
+        <h2>Не знаете, какой мастер нужен?</h2>
+        <p>Опишите задачу — подберём специалиста и назовём цену за 5 минут.</p>
+      </div>
+      <button class="btn btn-amber" data-nav="catalog">Подобрать мастера</button>
+    </div>
+
+    <!-- ===== Каталог ===== -->
+    <section id="catalog" class="section">
+      <div class="container">
+        <div class="section-header">
+          <h2>Каталог услуг</h2>
+          <p class="section-sub" id="catalog-sub">Прозрачные цены · онлайн-бронирование</p>
+        </div>
+        <div id="catalog-filters" class="catalog-filters"></div>
+        <div id="services-grid" class="services-grid"></div>
+      </div>
+    </section>
+
+    <!-- ===== Мастера ===== -->
+    <section id="masters" class="section" hidden>
+      <div class="container">
+        <div class="section-header">
+          <h2>Наши мастера</h2>
+          <p class="section-sub">Все специалисты проверены: паспорт, отзывы и гарантия на работы.</p>
+        </div>
+        <div id="masters-grid" class="masters-grid"></div>
+      </div>
+    </section>
+
+    <!-- ===== Заказы ===== -->
+    <section id="orders" class="section" hidden>
+      <div class="container">
+        <div class="section-header">
+          <h2>Мои заказы</h2>
+          <p class="section-sub">Здесь живут все бронирования, сделанные в этом браузере.</p>
+        </div>
+        <div id="orders-list" class="orders-list"></div>
+      </div>
+    </section>
+
+    <!-- ===== Как это работает ===== -->
+    <section id="how-it-works" class="section">
+      <div class="container">
+        <div class="section-header">
+          <h2>Как это работает</h2>
+          <p class="section-sub">От заявки до выполненной работы — 4 простых шага</p>
+        </div>
+        <div class="steps-grid">
+          <div class="step-card">
+            <div class="step-num">1</div>
+            <div class="step-title">Выберите услугу</div>
+            <div class="step-desc">Найдите нужную работу в каталоге с прозрачной ценой</div>
+          </div>
+          <div class="step-card">
+            <div class="step-num">2</div>
+            <div class="step-title">Выберите город и время</div>
+            <div class="step-desc">Подберите удобный слот — мастер подтвердит запись</div>
+          </div>
+          <div class="step-card">
+            <div class="step-num">3</div>
+            <div class="step-title">Мастер приедет</div>
+            <div class="step-desc">Выполнит работу точно в срок, гарантия на результат</div>
+          </div>
+          <div class="step-card">
+            <div class="step-num">4</div>
+            <div class="step-title">Оплатите удобно</div>
+            <div class="step-desc">Карта, наличные или СБП — как вам удобнее</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== Футер ===== -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a class="logo" href="#">
+            <span class="logo-icon">⚡</span>
+            <span class="font-display" style="font-size:1.1rem;color:#fff;">Super<strong style="color:#7aa2ff;">Master</strong></span>
+          </a>
+          <p>Маркетплейс домашних услуг: ремонт, электрика, сантехника, уборка. Проверенные мастера и прозрачные цены.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Услуги</h4>
+          <a href="#" data-nav="catalog">Каталог</a>
+          <a href="#" data-nav="masters">Мастера</a>
+          <button class="nav-link" data-nav="orders">Мои заказы</button>
+        </div>
+        <div class="footer-col">
+          <h4>Компания</h4>
+          <a href="#" data-nav="orders">Как это работает</a>
+          <a href="#">Политика конфиденциальности</a>
+          <a href="#">Публичная оферта</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 SuperMaster. Все права защищены.</span>
+        <span>Сделано с ⚡ для мастеров и клиентов</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== Модалка бронирования ===== -->
+  <div id="booking-modal" class="modal-overlay" hidden>
+    <div class="modal">
+      <button class="modal-close" data-close-modal aria-label="Закрыть">✕</button>
+      <h3 id="booking-title">Бронирование</h3>
+      <div id="booking-summary" class="booking-summary"></div>
+      <form id="booking-form" class="booking-form">
+        <div class="form-row" id="city-row" hidden>
+          <label>Город
+            <select id="b-city" required></select>
+          </label>
+        </div>
+        <div class="form-row">
+          <label>Дата
+            <input type="date" id="b-date" required>
+          </label>
+          <label>Время
+            <select id="b-time" required></select>
+          </label>
+        </div>
+        <div class="form-row">
+          <label>Ваше имя
+            <input type="text" id="b-name" placeholder="Иван Петров" required>
+          </label>
+          <label>Телефон
+            <input type="tel" id="b-phone" placeholder="+7 900 000-00-00" required>
+          </label>
+        </div>
+        <div class="form-row">
+          <label>Адрес
+            <input type="text" id="b-address" placeholder="ул. Ленина, 10, кв. 5" required>
+          </label>
+        </div>
+        <label>Комментарий к заказу
+          <textarea id="b-comment" rows="2" placeholder="Опишите задачу подробнее — мастер подготовится"></textarea>
+        </label>
+        <div class="booking-total">
+          <span>Итого к оплате</span>
+          <strong id="booking-total-price">—</strong>
+        </div>
+        <button type="submit" class="btn btn-amber btn-block">Забронировать</button>
+        <p class="form-note">Оплата произойдёт после бронирования. Заказ отменится бесплатно в любой момент.</p>
+      </form>
+    </div>
+  </div>
+
+  <!-- ===== Модалка «Заказ создан / оплата» ===== -->
+  <div id="pay-modal" class="modal-overlay" hidden>
+    <div class="modal modal-narrow">
+      <button class="modal-close" data-close-modal aria-label="Закрыть">✕</button>
+      <div class="pay-success-icon">🎉</div>
+      <h3>Заказ создан!</h3>
+      <p class="muted" id="pay-modal-text" style="color:var(--slate);font-size:0.9rem;">Мастер уже получил уведомление. Чтобы закрепить запись, оплатите заказ.</p>
+      <div class="pay-summary" id="pay-summary"></div>
+      <div class="pay-actions">
+        <button id="pay-now-btn" class="btn btn-blue btn-block">Оплатить сейчас</button>
+        <button id="pay-later-btn" class="btn btn-ghost btn-block">Оплатить позже</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Модалка профиля мастера ===== -->
+  <div id="master-modal" class="modal-overlay" hidden>
+    <div class="modal">
+      <button class="modal-close" data-close-modal aria-label="Закрыть">✕</button>
+      <div id="master-modal-content"></div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast" hidden></div>
+
+  <!-- ===== Мобильная нижняя навигация ===== -->
+  <nav class="mobile-bottom-nav">
+    <div class="mobile-nav-inner">
+      <button class="mobile-nav-btn active" data-nav="home"><span class="material-symbols-outlined">home</span>Главная</button>
+      <button class="mobile-nav-btn" data-nav="catalog"><span class="material-symbols-outlined">grid_view</span>Каталог</button>
+      <button class="mobile-nav-btn" data-nav="masters"><span class="material-symbols-outlined">group</span>Мастера</button>
+      <button class="mobile-nav-btn" data-nav="orders"><span class="material-symbols-outlined">receipt_long</span>Заказы</button>
+    </div>
+  </nav>
+
+  <script src="app.js"></script>
+  <script src="animations.js"></script>
+</body>
+</html>

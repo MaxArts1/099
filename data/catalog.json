@@ -1,0 +1,44 @@
+{
+  "source": "servicelead.top",
+  "note": "Каталог из БД supermaster. Офферы/FAQ с servicelead.top добавятся после авторизации.",
+  "categories": [
+    { "id": 1, "name": "Ремонт и отделка", "icon": "🔨" },
+    { "id": 2, "name": "Электрика", "icon": "⚡" },
+    { "id": 3, "name": "Сантехника", "icon": "🚿" },
+    { "id": 4, "name": "Уборка", "icon": "🧹" },
+    { "id": 5, "name": "Сборка мебели", "icon": "🪑" },
+    { "id": 6, "name": "Бытовая техника", "icon": "🔧" }
+  ],
+  "services": [
+    { "id": 1, "category": 1, "master": 1, "title": "Косметический ремонт комнаты", "price": 25000, "unit": "комната", "duration_min": 4320 },
+    { "id": 2, "category": 1, "master": 1, "title": "Покраска стен", "price": 800, "unit": "кв. м", "duration_min": 60 },
+    { "id": 3, "category": 1, "master": 2, "title": "Укладка плитки в ванной", "price": 1600, "unit": "кв. м", "duration_min": 90 },
+    { "id": 4, "category": 1, "master": 2, "title": "Укладка ламината", "price": 450, "unit": "кв. м", "duration_min": 45 },
+    { "id": 5, "category": 2, "master": 3, "title": "Замена электропроводки", "price": 15000, "unit": "квартира", "duration_min": 2880 },
+    { "id": 6, "category": 2, "master": 3, "title": "Установка розеток и выключателей", "price": 3500, "unit": "шт", "duration_min": 20 },
+    { "id": 7, "category": 2, "master": 3, "title": "Монтаж люстры", "price": 2500, "unit": "шт", "duration_min": 45 },
+    { "id": 8, "category": 3, "master": 4, "title": "Устранение засора", "price": 2000, "unit": "услуга", "duration_min": 40 },
+    { "id": 9, "category": 3, "master": 4, "title": "Установка смесителя", "price": 2500, "unit": "шт", "duration_min": 50 },
+    { "id": 10, "category": 3, "master": 4, "title": "Замена унитаза", "price": 4000, "unit": "шт", "duration_min": 90 },
+    { "id": 11, "category": 4, "master": 5, "title": "Генеральная уборка квартиры", "price": 8000, "unit": "квартира", "duration_min": 240 },
+    { "id": 12, "category": 4, "master": 5, "title": "Уборка после ремонта", "price": 12000, "unit": "квартира", "duration_min": 360 },
+    { "id": 13, "category": 5, "master": 6, "title": "Сборка шкафа", "price": 3000, "unit": "шт", "duration_min": 120 },
+    { "id": 14, "category": 5, "master": 6, "title": "Сборка кухни", "price": 9000, "unit": "кухня", "duration_min": 360 },
+    { "id": 15, "category": 6, "master": 7, "title": "Ремонт стиральной машины", "price": 3500, "unit": "услуга", "duration_min": 120 },
+    { "id": 16, "category": 6, "master": 7, "title": "Ремонт холодильника", "price": 4000, "unit": "услуга", "duration_min": 120 }
+  ],
+  "masters": [
+    { "id": 1, "name": "Алексей Смирнов", "phone": "+7 900 111-22-33", "city": "Москва", "rating": 4.9, "reviews": 214, "experience": 12 },
+    { "id": 2, "name": "Дмитрий Волков", "phone": "+7 900 222-33-44", "city": "Москва", "rating": 4.8, "reviews": 187, "experience": 9 },
+    { "id": 3, "name": "Игорь Кузнецов", "phone": "+7 900 333-44-55", "city": "Москва", "rating": 4.9, "reviews": 156, "experience": 8 },
+    { "id": 4, "name": "Сергей Морозов", "phone": "+7 900 444-55-66", "city": "Подольск", "rating": 4.7, "reviews": 98, "experience": 6 },
+    { "id": 5, "name": "Анна Белова", "phone": "+7 900 555-66-77", "city": "Москва", "rating": 5.0, "reviews": 321, "experience": 7 },
+    { "id": 6, "name": "Павел Орлов", "phone": "+7 900 666-77-88", "city": "Химки", "rating": 4.8, "reviews": 142, "experience": 5 },
+    { "id": 7, "name": "Олег Титов", "phone": "+7 900 777-88-99", "city": "Москва", "rating": 4.6, "reviews": 87, "experience": 11 }
+  ],
+  "cities": [
+    { "id": 1, "name": "Москва", "branch_id": 0 },
+    { "id": 2, "name": "Санкт-Петербург", "branch_id": 0 },
+    { "id": 3, "name": "Казань", "branch_id": 0 }
+  ]
+}

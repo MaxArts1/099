@@ -1,0 +1,13 @@
+﻿# Базы данных (локальные)
+data/*.db
+data/*.db-shm
+data/*.db-wal
+
+# Конфиг с секретами
+data/config.json
+
+# Node
+node_modules/
+
+# Особые файлы
+*.env
