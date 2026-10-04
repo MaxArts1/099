@@ -11,3 +11,5 @@ node_modules/
 
 # Особые файлы
 *.env
+# Локальный git-конфиг
+.gitconfig-local
