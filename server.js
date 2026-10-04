@@ -461,6 +461,16 @@ async function handleApi(req, res, parts) {
     return sendJson(res, 200, cities);
   }
 
+  // GET /api/faq — частые вопросы
+  if (resource === 'faq' && method === 'GET') {
+    let faqData = { faqs: [] };
+    try {
+      const raw = fs.readFileSync(path.join(DATA_DIR, 'faq.json'), 'utf-8');
+      faqData = JSON.parse(raw);
+    } catch (e) {}
+    return sendJson(res, 200, faqData);
+  }
+
   // GET /api/categories
   if (resource === 'categories' && method === 'GET') {
     return sendJson(res, 200, db.prepare(`

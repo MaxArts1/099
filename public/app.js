@@ -217,6 +217,21 @@ function renderServices() {
 }
 
 /* ---------- Мастера ---------- */
+function renderFaq() {
+  const el = $('#faq-list');
+  if (!el) return;
+  fetch('/api/faq').then(r => r.ok ? r.json() : { faqs: [] }).then(data => {
+    const faqs = data.faqs || [];
+    if (!faqs.length) { el.parentElement.hidden = true; return; }
+    el.innerHTML = faqs.map(f => `
+      <details class="faq-item">
+        <summary>${f.q}</summary>
+        <p>${f.a}</p>
+      </details>
+    `).join('');
+  });
+}
+
 function renderMasters() {
   const grid = $('#masters-grid');
   if (!state.masters.length) {
@@ -532,6 +547,7 @@ async function init() {
   renderCategories();
   renderFilters();
   renderServices();
+  renderFaq();
   setView('home');
   setupCitySelect();
   setupThemeToggle();

@@ -1,0 +1,22 @@
+{
+  "source": "servicelead.ru (публичные офферы, 2026) + БД supermaster",
+  "note": "Реальные направления сети ServiceLead. branch_id / offer_id вписать из ЛК.",
+  "services": [
+    { "code": "bt",     "title": "Ремонт бытовой техники на дому", "payout_from": 3000, "payout_avg_moscow": 3000 },
+    { "code": "pc",     "title": "Компьютерная помощь на дому", "payout_from": 1000, "payout_avg_moscow": 1000, "payout_region": 1200 },
+    { "code": "training","title": "Курсы мастеров (БТ / КП)", "payout_from": 3000 },
+    { "code": "tv",     "title": "Ремонт телевизоров", "payout_from": 700, "payout_avg_moscow": 1000 },
+    { "code": "refr",   "title": "Ремонт холодильников", "payout_from": 706 },
+    { "code": "wash",   "title": "Ремонт стиральных машин", "payout_from": 706 },
+    { "code": "dish",   "title": "Ремонт посудомоечных машин", "payout_from": 1000 },
+    { "code": "mnch",   "title": "Мастер на час", "payout_from": 606 },
+    { "code": "coffee", "title": "Ремонт кофемашин", "payout_from": 1000 },
+    { "code": "electro","title": "Ремонт электроники", "payout_from": 1000 },
+    { "code": "dzi",    "title": "Дезинсекция", "payout_from": 2000 }
+  ],
+  "regions": [
+    { "name": "Росcия", "status": "active" },
+    { "name": "Беларусь", "status": "opening_soon" },
+    { "name": "Украина", "status": "opening_soon" }
+  ]
+}
