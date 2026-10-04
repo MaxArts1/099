@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>МУЖ НА ЧАС. — бытовой ремонт 24/7: один мастер, все задачи</title>
+<meta name="description" content="Мелкий ремонт, стиральные машины, газовые котлы, кондиционеры, дезинсекция, химчистка мебели, клининг, сантехника. Выезд за 60 минут, гарантия 12 месяцев, оплата после работ. Звоните +7 (999) 123-45-67.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="МУЖ НА ЧАС. — Один мастер. Все задачи.">
+<meta property="og:description" content="Служба бытового ремонта 24/7. Выезд за 60 мин · Гарантия 12 мес · Оплата после работ.">
+<meta property="og:image" content="img/01-hero.jpg">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230F0F0F'/%3E%3Cpath d='M16 6v20M6 16h20' stroke='%235DD62C' stroke-width='4'/%3E%3C/svg%3E">
+
+<!-- Шрифты: fontsource CDN (woff2, latin+cyrillic). Если сеть недоступна — системные фолбэки. -->
+<style id="ff">
+@font-face{font-family:'Oswald';font-style:normal;font-weight:700;font-display:swap;
+ src:url('https://cdn.jsdelivr.net/npm/@fontsource/oswald@5.0.8/files/oswald-cyrillic-700-normal.woff2') format('woff2');}
+@font-face{font-family:'Caveat';font-style:normal;font-weight:700;font-display:swap;
+ src:url('https://cdn.jsdelivr.net/npm/@fontsource/caveat@5.0.8/files/caveat-cyrillic-700-normal.woff2') format('woff2');}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:400;font-display:swap;
+ src:url('https://cdn.jsdelivr.net/npm/@fontsource/jetbrains-mono@5.0.8/files/jetbrains-mono-cyrillic-400-normal.woff2') format('woff2');}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:700;font-display:swap;
+ src:url('https://cdn.jsdelivr.net/npm/@fontsource/jetbrains-mono@5.0.8/files/jetbrains-mono-cyrillic-700-normal.woff2') format('woff2');}
+</style>
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"LocalBusiness","name":"МУЖ НА ЧАС.","description":"Служба бытового ремонта 24/7. Один мастер — все задачи.","telephone":"+7 (999) 123-45-67","priceRange":"₽₽","address":{"@type":"PostalAddress","addressCountry":"RU"},"openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],"opens":"00:00","closes":"23:59"}],"hasOfferCatalog":{"@type":"OfferCatalog","name":"Услуги","itemListElement":[
+{"@type":"Service","name":"Мелкий ремонт"},{"@type":"Service","name":"Стиральные машины и бытовая техника"},{"@type":"Service","name":"Газовые котлы"},{"@type":"Service","name":"Кондиционеры"},{"@type":"Service","name":"Дезинсекция"},{"@type":"Service","name":"Химчистка мягкой мебели"},{"@type":"Service","name":"Клининг"},{"@type":"Service","name":"Сантехника"}]}}
+</script>
+
+<style>
+/* ============ ТОКЕНЫ БРЕНДА ============ */
+:root{
+  --bg:#0F0F0F; --surface:#202020; --acid:#5DD62C; --deep:#337418; --paper:#F8F8F8;
+  --red:#ff2d2d; --roach:#5a3413; --note:#9a9a9a;
+  --e-expo:cubic-bezier(.85,0,.15,1); --e-back:cubic-bezier(.34,1.56,.64,1); --e-snap:cubic-bezier(.9,0,.1,1);
+  --disp:'Oswald','Arial Narrow',Impact,sans-serif;
+  --marker:'Caveat','Segoe Script',cursive;
+  --mono:'JetBrains Mono','Courier New',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:auto}
+body{background:var(--bg);color:var(--paper);font-family:var(--mono);overflow-x:hidden;line-height:1.4}
+::selection{background:var(--acid);color:#0F0F0F}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+:focus-visible{outline:3px solid var(--acid);outline-offset:3px}
+section{position:relative;padding:clamp(64px,9vh,120px) clamp(16px,5vw,72px)}
+
+/* ============ ТИПОГРАФИКА ============ */
+.disp{font-family:var(--disp);font-weight:700;text-transform:uppercase;line-height:.92;letter-spacing:.01em}
+.dot-a{color:var(--acid)}
+.mono-note{font-size:12px;color:var(--note);text-transform:uppercase;letter-spacing:.08em}
+.marker{font-family:var(--marker);font-weight:700;color:var(--acid)}
+.h1{font-size:clamp(56px,13vw,190px)}
+.h2{font-size:clamp(38px,7.5vw,110px)}
+.h3{font-size:clamp(26px,4vw,58px)}
+
+/* ============ ПЛЁНОЧНОЕ ЗЕРНО (поверх всего) ============ */
+#grain{position:fixed;inset:-60%;z-index:9990;pointer-events:none;opacity:.07;
+ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)' opacity='0.85'/%3E%3C/svg%3E");
+ animation:grain .9s steps(10) infinite}
+@keyframes grain{0%{transform:translate(0,0)}10%{transform:translate(-4%,-6%)}20%{transform:translate(6%,-3%)}30%{transform:translate(-5%,4%)}40%{transform:translate(3%,6%)}50%{transform:translate(-6%,-4%)}60%{transform:translate(5%,3%)}70%{transform:translate(-3%,-5%)}80%{transform:translate(4%,5%)}90%{transform:translate(-4%,3%)}100%{transform:translate(0,0)}}
+
+/* ============ HUD / ПРОГРЕСС / АВТОПЛЕЙ ============ */
+#hud{position:fixed;top:14px;left:14px;z-index:9991;font-size:11px;color:var(--note);letter-spacing:.1em;pointer-events:none;text-transform:uppercase}
+#prog{position:fixed;top:0;left:0;height:3px;width:0;background:var(--acid);z-index:9995}
+#apBtn{position:fixed;right:16px;bottom:16px;z-index:9992;background:var(--acid);color:#0F0F0F;font-family:var(--disp);font-weight:700;text-transform:uppercase;font-size:14px;letter-spacing:.08em;padding:12px 18px;box-shadow:4px 4px 0 var(--deep)}
+#apBtn:hover{transform:translate(-1px,-1px);box-shadow:6px 6px 0 var(--deep)}
+.clean #hud,.clean #apBtn,.clean #prog{display:none}
+/* автоплей: замораживаем декоративные лупы для чистой записи */
+.ap-play #ticker .track,.ap-play #grain,.ap-play #globe,.ap-play .kb img,.ap-play .sweep::before,.ap-play .flow i,.ap-play .cta,.ap-play .num,.ap-play .fault{animation-play-state:paused!important}
+
+/* ============ ФОТО-СЛОТЫ: ч/б + лайм-рим + wireframe-фолбэк ============ */
+.shot{position:relative;overflow:hidden;background:var(--surface);border:2px solid #2b2b2b}
+.shot img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.15) brightness(.92)}
+.shot::after{content:"";position:absolute;inset:0;pointer-events:none;
+ box-shadow:inset 0 0 0 2px rgba(93,214,44,.5),inset -26px 0 60px -20px rgba(93,214,44,.35),inset 0 0 120px rgba(0,0,0,.55)}
+.shot .wf{position:absolute;inset:0;display:grid;place-items:center;color:var(--acid);opacity:.75}
+.shot .wf svg{width:min(58%,320px);stroke:currentColor;fill:none;stroke-width:2}
+.shot figcaption{position:absolute;left:10px;bottom:8px;z-index:3;font-size:10px;letter-spacing:.12em;color:var(--note);text-transform:uppercase}
+.kb img{animation:kb 16s var(--e-snap) infinite alternate}
+@keyframes kb{from{transform:scale(1) translate(0,0)}to{transform:scale(1.12) translate(-2%,-2%)}}
+.sweep::before{content:"";position:absolute;left:0;right:0;height:14%;top:-20%;z-index:2;pointer-events:none;
+ background:linear-gradient(rgba(93,214,44,0),rgba(93,214,44,.16),rgba(93,214,44,0));animation:sweep 5.5s linear infinite}
+@keyframes sweep{to{top:110%}}
+
+/* ============ СТИКЕРЫ-ПЕЧАТИ / БАРКОДЫ / ПРИЦЕЛЫ ============ */
+.sticker{display:inline-block;background:var(--acid);color:#0F0F0F;font-family:var(--disp);font-weight:700;text-transform:uppercase;
+ padding:8px 14px;box-shadow:5px 5px 0 var(--deep);letter-spacing:.04em}
+.sticker.paper{background:var(--paper)}
+.barcode{display:flex;gap:2px;align-items:stretch;height:34px}
+.barcode i{background:var(--paper);display:block}
+.crosshair{position:absolute;width:26px;height:26px;color:var(--acid);opacity:.8;pointer-events:none}
+.crosshair::before,.crosshair::after{content:"";position:absolute;background:currentColor}
+.crosshair::before{left:50%;top:0;bottom:0;width:2px;transform:translateX(-50%)}
+.crosshair::after{top:50%;left:0;right:0;height:2px;transform:translateY(-50%)}
+.plus-list{list-style:none}
+.plus-list li{padding-left:26px;position:relative;margin:8px 0}
+.plus-list li::before{content:"+";position:absolute;left:0;top:0;color:var(--acid);font-weight:700;font-size:18px;line-height:1.2}
+.arrow-pill{display:inline-flex;align-items:center;gap:8px;background:var(--acid);color:#0F0F0F;font-family:var(--disp);font-weight:700;text-transform:uppercase;padding:8px 16px;font-size:14px}
+
+/* ============ ПРЕЛОАД ============ */
+#pre{position:fixed;inset:0;z-index:9998;background:var(--bg);display:grid;place-items:center;transition:transform .8s var(--e-expo)}
+#pre .scanwrap{position:relative;width:220px;height:120px}
+#pre .bc{display:flex;gap:3px;height:90px;align-items:stretch;justify-content:center}
+#pre .bc i{width:5px;background:var(--paper);transform:scaleY(.15);transform-origin:bottom;animation:scan-y .45s var(--e-snap) forwards}
+#pre .bc i:nth-child(2){animation-delay:.08s}#pre .bc i:nth-child(3){animation-delay:.16s}
+#pre .bc i:nth-child(4){animation-delay:.24s}#pre .bc i:nth-child(5){animation-delay:.32s}
+#pre .bc i:nth-child(6){animation-delay:.4s}#pre .bc i:nth-child(7){animation-delay:.48s}
+#pre .bc i:nth-child(8){animation-delay:.56s}#pre .bc i:nth-child(9){animation-delay:.64s}
+#pre .bc i:nth-child(10){animation-delay:.72s}#pre .bc i:nth-child(11){animation-delay:.8s}
+#pre .bc i:nth-child(12){animation-delay:.88s}
+@keyframes scan-y{to{transform:scaleY(1)}}
+#pre .line{position:absolute;left:-10px;right:-10px;top:50%;height:3px;background:var(--acid);transform:scaleX(0);animation:scan-burst .5s var(--e-snap) 1.35s forwards}
+@keyframes scan-burst{to{transform:scaleX(1)}}
+.pre-done{transform:translateY(-102%)!important}
+#pre .lbl{margin-top:18px;text-align:center;font-size:11px;letter-spacing:.3em;color:var(--note);text-transform:uppercase}
+
+/* ============ HERO ============ */
+#hero{min-height:100svh;display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(20px,4vw,56px);align-items:center;padding-top:96px;padding-bottom:120px}
+.hero-side{display:flex;flex-direction:column;gap:22px}
+.hero-shot{aspect-ratio:4/5}
+#globe{width:120px;height:120px;color:var(--acid);opacity:.9;animation:spin 26s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+#ticker{position:absolute;left:0;right:0;bottom:0;border-top:2px solid var(--acid);border-bottom:2px solid var(--acid);overflow:hidden;background:var(--bg);padding:10px 0}
+#ticker .track{display:flex;gap:44px;white-space:nowrap;width:max-content;animation:tick 22s linear infinite}
+#ticker b{font-family:var(--disp);text-transform:uppercase;font-size:16px;letter-spacing:.06em}
+#ticker em{color:var(--acid);font-style:normal}
+@keyframes tick{to{transform:translateX(-50%)}}
+.cta{display:inline-block;background:var(--acid);color:#0F0F0F;font-family:var(--disp);font-weight:700;text-transform:uppercase;
+ font-size:clamp(18px,2.4vw,28px);padding:16px 30px;box-shadow:6px 6px 0 var(--deep);animation:cta-pulse 1.8s var(--e-snap) infinite}
+.cta:hover{transform:translate(-2px,-2px);box-shadow:9px 9px 0 var(--deep)}
+@keyframes cta-pulse{0%,100%{box-shadow:6px 6px 0 var(--deep)}50%{box-shadow:6px 6px 0 var(--deep),0 0 26px rgba(93,214,44,.5)}}
+.tel{font-family:var(--disp);font-weight:700;font-size:clamp(20px,2.6vw,30px);letter-spacing:.04em}
+.tel:hover{color:var(--acid)}
+.drip{color:var(--acid);font-size:44px;line-height:1;font-family:var(--disp)}
+
+/* ============ МАНИФЕСТ ============ */
+#manifest{min-height:92svh;display:flex;flex-direction:column;justify-content:center;gap:36px;background:var(--surface)}
+#manifest .row{display:flex;flex-wrap:wrap;gap:18px}
+.slap{opacity:0}
+
+/* ============ ИНДЕКС 01–08 ============ */
+#index .idx{border-top:2px solid #2b2b2b}
+#index .row{display:flex;align-items:baseline;gap:20px;padding:14px 12px;border-bottom:2px solid #2b2b2b;cursor:default;transition:background .05s linear,color .05s linear,transform .05s linear}
+#index .row .n{font-weight:700;color:var(--acid);font-size:18px;min-width:44px}
+#index .row .t{font-family:var(--disp);font-weight:700;text-transform:uppercase;font-size:clamp(22px,3.6vw,46px);line-height:.92}
+#index .row .p{margin-left:auto;font-size:12px;color:var(--note);text-transform:uppercase;letter-spacing:.08em}
+#index .row:hover,#index .row:focus-within{background:var(--acid);color:#0F0F0F;transform:translateX(14px)}
+#index .row:hover .n,#index .row:hover .p{color:#0F0F0F}
+
+/* ============ БОРД 2×2 ============ */
+#board .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+#board .shot{aspect-ratio:1/1}
+
+/* ============ ДРОПЫ ============ */
+.drop{display:grid;grid-template-columns:1fr 1fr;gap:clamp(20px,4vw,60px);align-items:center;min-height:90svh}
+.drop.rev .txt{order:2}
+.drop .num{position:absolute;top:8vh;right:4vw;font-family:var(--disp);font-weight:700;font-size:clamp(90px,16vw,240px);line-height:.8;
+ color:transparent;-webkit-text-stroke:2px var(--acid);opacity:.85;animation:glow 2.6s var(--e-snap) infinite;pointer-events:none}
+@keyframes glow{0%,100%{text-shadow:0 0 0 rgba(93,214,44,0)}50%{text-shadow:0 0 34px rgba(93,214,44,.55)}}
+.drop h2{margin:14px 0 18px}
+.drop .shot{aspect-ratio:4/3}
+.price{font-weight:700;color:var(--acid);font-size:18px}
+.strike{color:var(--note);text-decoration:line-through;font-weight:400;font-size:14px;margin-right:8px}
+
+/* Drop 01: уровень */
+.bubble-svg{position:absolute;right:12px;top:12px;z-index:3;width:150px}
+.bubble-svg .cx{fill:var(--acid)}
+/* Drop 02: взрыв-схема */
+.schema{position:absolute;inset:0;z-index:2;pointer-events:none}
+.schema path,.schema circle,.schema line{fill:none;stroke:var(--acid);stroke-width:2;vector-effect:non-scaling-stroke}
+.fault{fill:var(--acid);animation:fault 2.2s var(--e-snap) infinite}
+@keyframes fault{0%,55%{opacity:.15}60%,70%{opacity:1}75%{opacity:.2}80%,100%{opacity:.95;fill:#fff}}
+/* Drop 03: трубы + манометр */
+.pipes{position:absolute;inset:0;z-index:2;pointer-events:none}
+.pipes path{fill:none;stroke:var(--acid);stroke-width:5;filter:drop-shadow(0 0 8px rgba(93,214,44,.6))}
+.gauge{position:absolute;left:10px;bottom:10px;z-index:3;width:120px;color:var(--acid)}
+.gauge .needle{transform-origin:60px 60px;transform:rotate(-95deg)}
+/* Drop 04: частицы потока + счётчик */
+.flow{position:absolute;inset:0;z-index:2;pointer-events:none;overflow:hidden}
+.flow i{position:absolute;width:8px;height:8px;background:var(--acid);border-radius:50%;opacity:.8;animation:blow 3.2s var(--e-snap) infinite}
+@keyframes blow{0%{transform:translate(0,0) scale(1);opacity:.9}100%{transform:translate(240px,90px) scale(.2);opacity:0}}
+.temp{position:absolute;right:14px;top:12px;z-index:3;font-family:var(--disp);font-weight:700;font-size:clamp(34px,5vw,64px);color:var(--acid);text-shadow:0 0 22px rgba(93,214,44,.5)}
+/* Drop 05: туман, тараканы, рваная бумага */
+.fog{position:absolute;inset:-20%;z-index:2;pointer-events:none;background:radial-gradient(closest-side,rgba(248,248,248,.5),rgba(248,248,248,0));transform:scale(.2)}
+.roach{position:absolute;z-index:3;width:46px}
+.roach .body{fill:var(--roach)}
+.roach .x{stroke:var(--red);stroke-width:5;stroke-linecap:round}
+.paper-strip{position:relative;background:var(--paper);color:#0F0F0F;padding:26px 34px;
+ clip-path:polygon(0 6%,4% 0,97% 3%,100% 12%,98% 90%,94% 100%,6% 97%,2% 92%,0 40%)}
+.paper-strip .lbl{font-family:var(--disp);font-weight:700;text-transform:uppercase;font-size:22px}
+/* Drop 06/07: шторка до/после */
+.ba{position:relative;aspect-ratio:16/10}
+.ba .after,.ba .before{position:absolute;inset:0}
+.ba .before{clip-path:inset(0 0 0 92%)}
+.ba .before img{filter:grayscale(1) contrast(1.6) brightness(.5) sepia(.4)}
+.ba .handle{position:absolute;top:0;bottom:0;width:4px;background:var(--acid);left:92%;z-index:4;box-shadow:0 0 14px rgba(93,214,44,.8)}
+.ba .handle::after{content:"⟷";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:var(--acid);color:#0F0F0F;
+ width:38px;height:38px;border-radius:50%;display:grid;place-items:center;font-weight:700}
+.ba-tag{position:absolute;top:10px;z-index:5;font-size:11px;letter-spacing:.14em;text-transform:uppercase;background:#0F0F0F;color:var(--note);padding:4px 8px}
+/* Отзывы */
+#revs .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:26px}
+.review{background:var(--paper);color:#0F0F0F;padding:22px;box-shadow:6px 6px 0 var(--deep);font-size:14px}
+.review .who{margin-top:12px;font-weight:700}
+.review .stamp{position:absolute;right:8px;top:8px;border:3px solid var(--deep);color:var(--deep);font-family:var(--disp);font-weight:700;
+ text-transform:uppercase;padding:4px 8px;transform:rotate(8deg);font-size:12px;opacity:.85}
+.review .rate{color:var(--deep);font-weight:700}
+/* Финал: инверсия */
+#final{background:var(--acid);color:#0F0F0F}
+#final .h1{color:#0F0F0F}
+#final .h1 .dot-w{color:var(--paper)}
+#form{background:#0F0F0F;color:var(--paper);padding:clamp(20px,4vw,40px);max-width:560px}
+#form label{display:block;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--note);margin:14px 0 6px}
+#form input,#form select{width:100%;background:var(--surface);border:2px solid #3a3a3a;color:var(--paper);font-family:var(--mono);padding:12px;font-size:15px}
+#form input:focus,#form select:focus{border-color:var(--acid);outline:none}
+#form button{margin-top:22px;background:var(--acid);color:#0F0F0F;font-family:var(--disp);font-weight:700;text-transform:uppercase;font-size:20px;padding:14px 26px;width:100%;box-shadow:5px 5px 0 var(--deep)}
+#form .err{color:var(--red);font-size:12px;margin-top:6px;display:none}
+#form.sent .ok{display:block}
+#form .ok{display:none;background:var(--acid);color:#0F0F0F;font-family:var(--disp);font-weight:700;text-transform:uppercase;padding:16px;margin-top:18px;font-size:18px}
+footer{background:#0F0F0F;color:var(--note);padding:34px clamp(16px,5vw,72px);display:flex;flex-wrap:wrap;gap:24px;align-items:center;justify-content:space-between;font-size:12px;text-transform:uppercase;letter-spacing:.08em}
+footer a:hover{color:var(--acid)}
+
+/* ============ REDUCED MOTION ============ */
+@media (prefers-reduced-motion: reduce){
+ *,*::before,*::after{animation-duration:.001s!important;animation-iteration-count:1!important;transition-duration:.001s!important}
+ #grain{animation:none}
+}
+/* ============ АДАПТИВ ============ */
+@media (max-width:860px){
+ #hero{grid-template-columns:1fr;padding-top:80px}
+ .drop{grid-template-columns:1fr}
+ .drop.rev .txt{order:0}
+ #board .grid{grid-template-columns:1fr}
+ #ticker b{font-size:13px}
+ #final > div:last-child{grid-template-columns:1fr!important}
+}
+</style>
+</head>
+<body>
+
+<div id="grain" aria-hidden="true"></div>
+<div id="prog" aria-hidden="true"></div>
+<div id="hud" aria-hidden="true">X:1920 Y:1080 · 24/7 · v2</div>
+
+<!-- 0. ПРЕЛОАД -->
+<div id="pre" role="presentation">
+  <div>
+    <div class="scanwrap">
+      <div class="bc" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      <div class="line" aria-hidden="true"></div>
+    </div>
+    <div class="lbl">МУЖ НА ЧАС. · SCAN · 24/7</div>
+  </div>
+</div>
+
+<!-- 1. HERO -->
+<section id="hero" aria-label="Главный экран">
+  <div class="hero-side">
+    <div class="mono-note">СЛУЖБА БЫТОВОГО РЕМОНТА · 24/7 · DROP LIST ↓</div>
+    <h1 class="disp h1"><span class="scramble" data-final="МУЖ НА ЧАС">МУЖ НА ЧАС</span><span class="dot-a">.</span></h1>
+    <p style="max-width:46ch;color:var(--note)">Один мастер. Все задачи. От полки до котла — приезжаем, чиним, убираем. Без «улыбающихся людей со стоков».</p>
+    <div style="display:flex;gap:16px;flex-wrap:wrap;align-items:center">
+      <a class="cta" href="#final">ВЫЗВАТЬ МАСТЕРА</a>
+      <a class="tel" href="tel:+79991234567" aria-label="Позвонить +7 999 123-45-67">+7 (999) 123-45-67</a>
+    </div>
+    <div style="display:flex;gap:14px;flex-wrap:wrap">
+      <span class="sticker">ВЫЕЗД ЗА 60 МИН</span>
+      <span class="sticker paper">ГАРАНТИЯ 12 МЕС</span>
+      <span class="sticker">ОПЛАТА ПОСЛЕ РАБОТ</span>
+    </div>
+    <svg id="globe" viewBox="0 0 100 100" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5">
+      <circle cx="50" cy="50" r="46"/><ellipse cx="50" cy="50" rx="20" ry="46"/><ellipse cx="50" cy="50" rx="46" ry="18"/>
+      <line x1="4" y1="50" x2="96" y2="50"/><line x1="50" y1="4" x2="50" y2="96"/>
+    </svg>
+  </div>
+  <figure class="shot hero-shot kb sweep" data-slot="img/01-hero.jpg"
+    data-alt="Мастер с дрелью в кепке и поясом с инструментом, лаймовый контровой свет">
+    <div class="wf" aria-hidden="true"><svg viewBox="0 0 120 120"><rect x="18" y="14" width="84" height="92"/><circle cx="60" cy="44" r="14"/><path d="M34 96c6-20 46-20 52 0"/><path d="M78 60l16 6-4 10"/></svg></div>
+    <figcaption>IMG-01 · MASTER + DRILL · LIME RIM</figcaption>
+  </figure>
+  <div id="ticker" aria-hidden="true"><div class="track" id="tickTrack"></div></div>
+</section>
+
+<!-- 2. МАНИФЕСТ -->
+<section id="manifest" aria-label="Манифест">
+  <div class="mono-note">// MANIFEST</div>
+  <h2 class="disp h2">НЕ ОБЕЩАЕМ<span class="dot-a">.</span><br>ДЕЛАЕМ<span class="dot-a">.</span></h2>
+  <p class="marker" style="font-size:clamp(24px,3.4vw,42px)">не обещаем — делаем<span style="border-bottom:4px solid var(--acid)">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+  <div class="row">
+    <span class="sticker slap">ВЫЕЗД ЗА 60 МИН</span>
+    <span class="sticker paper slap">ГАРАНТИЯ 12 МЕС</span>
+    <span class="sticker slap">ОПЛАТА ПОСЛЕ РАБОТ</span>
+  </div>
+  <div class="crosshair" style="right:8%;top:12%"></div>
+</section>
+
+<!-- 3. ИНДЕКС -->
+<section id="index" aria-label="Индекс услуг">
+  <div class="mono-note">// INDEX 01—08</div>
+  <h2 class="disp h3 rv" style="margin:10px 0 26px">ИНДЕКС УСЛУГ<span class="dot-a">.</span></h2>
+  <div class="idx" role="list">
+    <a class="row" role="listitem" href="#d1"><span class="n">01</span><span class="t">МЕЛКИЙ РЕМОНТ</span><span class="p">полки · розетки · ручки · карнизы · мебель</span></a>
+    <a class="row" role="listitem" href="#d2"><span class="n">02</span><span class="t">СТИРАЛЬНЫЕ МАШИНЫ И БЫТОВАЯ ТЕХНИКА</span><span class="p">диагностика 0 ₽</span></a>
+    <a class="row" role="listitem" href="#d3"><span class="n">03</span><span class="t">ГАЗОВЫЕ КОТЛЫ</span><span class="p">диагностика → ремонт → гарантия</span></a>
+    <a class="row" role="listitem" href="#ac"><span class="n">04</span><span class="t">КОНДИЦИОНЕРЫ</span><span class="p">монтаж · обслуживание</span></a>
+    <a class="row" role="listitem" href="#d5"><span class="n">05</span><span class="t">ДЕЗИНСЕКЦИЯ</span><span class="p">дезинфекция · дератизация · холодный туман · гарантия 1 год</span></a>
+    <a class="row" role="listitem" href="#d6"><span class="n">06</span><span class="t">ХИМЧИСТКА МЯГКОЙ МЕБЕЛИ</span><span class="p">диваны · матрасы · ковры</span></a>
+    <a class="row" role="listitem" href="#d6"><span class="n">07</span><span class="t">КЛИНИНГ</span><span class="p">квартиры · офисы · после ремонта</span></a>
+    <a class="row" role="listitem" href="#d3"><span class="n">08</span><span class="t">САНТЕХНИКА</span><span class="p">без протечек</span></a>
+  </div>
+  <p class="mono-note" style="margin-top:18px">ТЕРМИНЫ: ДЕЗИНСЕКЦИЯ = НАСЕКОМЫЕ · ДЕЗИНФЕКЦИЯ = МИКРОБЫ/ЗАПАХИ · ДЕРАТИЗАЦИЯ = ГРЫЗУНЫ</p>
+</section>
+
+<!-- 4. БОРД 2×2 -->
+<section id="board" aria-label="Борд услуг">
+  <div class="mono-note">// BOARD 2×2</div>
+  <h2 class="disp h3 rv" style="margin:10px 0 26px">ВСЕ ЗАДАЧИ В ОДНОМ ЛИЦЕ<span class="dot-a">.</span></h2>
+  <div class="grid">
+    <figure class="shot kb sweep" data-slot="img/03-grid.jpg" data-alt="Колаж: сантехник, стиральная машина, кондиционер, дезинсектор">
+      <div class="wf" aria-hidden="true"><svg viewBox="0 0 120 120"><rect x="10" y="10" width="46" height="46"/><rect x="64" y="10" width="46" height="46"/><rect x="10" y="64" width="46" height="46"/><rect x="64" y="64" width="46" height="46"/></svg></div>
+      <figcaption>IMG-03 · GRID · PLUMBING/WASH/AC/DEZ</figcaption>
+    </figure>
+    <figure class="shot kb sweep" data-slot="img/07-polka.jpg" data-alt="Мастер навешивает полку с уровнем">
+      <div class="wf" aria-hidden="true"><svg viewBox="0 0 120 120"><rect x="16" y="50" width="88" height="8"/><path d="M30 58v14M90 58v14"/><circle cx="60" cy="40" r="8"/></svg></div>
+      <figcaption>IMG-07 · SHELF + LEVEL</figcaption>
+    </figure>
+    <figure class="shot kb sweep" data-slot="img/08-cond.jpg" data-alt="Монтажник устанавливает внутренний блок кондиционера">
+      <div class="wf" aria-hidden="true"><svg viewBox="0 0 120 120"><rect x="18" y="24" width="84" height="26" rx="4"/><path d="M28 60c8 10 8 22 0 32M60 60c8 10 8 22 0 32M92 60c8 10 8 22 0 32"/></svg></div>
+      <figcaption>IMG-08 · AC MOUNTAGE</figcaption>
+    </figure>
+    <figure class="shot kb sweep" data-slot="img/05-dez.jpg" data-alt="Дезинсектор в защитном костюме с генератором тумана">
+      <div class="wf" aria-hidden="true"><svg viewBox="0 0 120 120"><circle cx="60" cy="34" r="14"/><path d="M40 96c4-24 36-24 40 0M74 48l20-10"/><circle cx="100" cy="34" r="10"/></svg></div>
+      <figcaption>IMG-05 · FOG MACHINE</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 5. DROP 01 -->
+<section id="d1" class="drop" aria-label="Drop 01 мелкий ремонт">
+  <div class="num" aria-hidden="true">01</div>
+  <figure class="shot kb" data-slot="img/07-polka.jpg" data-alt="Мастер выравнивает полку по уровню">
+    <svg class="bubble-svg" viewBox="0 0 150 40" aria-hidden="true">
+      <rect x="1" y="1" width="148" height="38" fill="none" stroke="#F8F8F8" stroke-width="2"/>
+      <line x1="55" y1="6" x2="55" y2="34" stroke="#F8F8F8" stroke-width="2"/><line x1="95" y1="6" x2="95" y2="34" stroke="#F8F8F8" stroke-width="2"/>
+      <circle class="cx" cx="66" cy="20" r="9"/>
+    </svg>
+    <div class="wf" aria-hidden="true"><svg viewBox="0 0 120 120"><rect x="16" y="50" width="88" height="8"/><path d="M30 58v14M90 58v14"/></svg></div>
+    <figcaption>IMG-07 · POLKA + UROVEN</figcaption>
+  </figure>
+  <div class="txt">
+    <span class="arrow-pill">DROP 01 →</span>
+    <h2 class="disp h2 rv">МЕЛКИЙ<br>РЕМОНТ<span class="dot-a">.</span></h2>
+    <ul class="plus-list">
+      <li>Полки, карнизы, штанги</li><li>Розетки, выключатели, люстры</li>
+      <li>Ручки, петли, регулировка дверей</li><li>Сборка и ремонт мебели</li>
+    </ul>
+    <p class="price">от 900 ₽ · выезд 0 ₽ при работе</p>
+    <div style="margin-top:16px"><span class="sticker">ВЫЕЗД ЗА 60 МИН</span></div>
+  </div>
+</section>
+
+<!-- 6. DROP 02 -->
+<section id="d2" class="drop rev" aria-label="Drop 02 стиральные машины">
+  <div class="num" aria-hidden="true">02</div>
+  <figure class="shot kb" data-slot="img/02-wash.jpg" data-alt="Мастер у открытой стиральной машины с подшипником">
+    <svg class="schema" viewBox="0 0 400 300" preserveAspectRatio="none" aria-hidden="true">
+      <circle class="dw" cx="200" cy="150" r="80"/>
+      <circle class="dw" cx="200" cy="150" r="52"/>
+      <path class="dw" d="M200 150 L280 90 M200 150 L120 210"/>
+      <circle class="dw" cx="280" cy="90" r="10"/><circle class="dw" cx="120" cy="210" r="10"/>
+      <path class="dw" d="M300 240 l40 -30 M320 250 l40 -30"/>
+      <circle class="fault" cx="280" cy="90" r="6"/>
+    </svg>
+    <div class="wf" aria-hidden="true"><svg viewBox="0 0 120 120"><rect x="20" y="14" width="80" height="92"/><circle cx="60" cy="66" r="26"/><circle cx="60" cy="66" r="14"/><path d="M30 26h16M56 26h16"/></svg></div>
+    <figcaption>IMG-02 · WASHER · BEARING EXPLODED VIEW</figcaption>
+  </figure>
+  <div class="txt">
+    <span class="arrow-pill">DROP 02 →</span>
+    <h2 class="disp h2 rv">СТИРАЛЬНЫЕ МАШИНЫ<br>И БЫТОВАЯ ТЕХНИКА<span class="dot-a">.</span></h2>
+    <ul class="plus-list">
+      <li>Подшипники, помпы, ТЭНы, модули</li><li>Стиралки, посудомойки, сушки, плиты</li>
+      <li>Оригинальные и ресурсные запчасти</li>
+    </ul>
+    <p class="price"><span class="strike">1500 ₽</span>ДИАГНОСТИКА 0 ₽ · ремонт от 1200 ₽</p>
+    <p class="mono-note" style="margin-top:10px">ДЕФЕКТ НАЙДЕН → БЕЛЫЙ ШУМ → ЗАМЕНА</p>
+  </div>
+</section>
+
+<!-- 7. DROP 03 + 08 -->
+<section id="d3" class="drop" aria-label="Drop 03 газовые котлы и 08 сантехника">
+  <div class="num" aria-hidden="true">03·08</div>
+  <figure class="shot kb" data-slot="img/04-kotly.jpg" data-alt="Котёл с манометром и сантехник под мойкой, лаймовые трубы">
+    <svg class="pipes" viewBox="0 0 400 300" preserveAspectRatio="none" aria-hidden="true">
+      <path class="dw" d="M60 20 V120 Q60 150 90 150 H200"/>
+      <path class="dw" d="M340 280 V190 Q340 160 310 160 H210"/>
+    </svg>
+    <svg class="gauge" viewBox="0 0 120 120" aria-hidden="true">
+      <circle cx="60" cy="60" r="54" fill="#0F0F0F" stroke="currentColor" stroke-width="2"/>
+      <path d="M20 84 A52 52 0 0 1 100 84" fill="none" stroke="currentColor" stroke-width="3"/>
+      <line class="needle" x1="60" y1="60" x2="60" y2="18" stroke="#F8F8F8" stroke-width="3"/>
+      <circle cx="60" cy="60" r="5" fill="currentColor"/>
+      <text x="60" y="104" fill="currentColor" font-size="12" text-anchor="middle" font-family="monospace">BAR</text>
+    </svg>
+    <div class="wf" aria-hidden="true"><svg viewBox="0 0 120 120"><rect x="30" y="16" width="60" height="70"/><circle cx="60" cy="46" r="12"/><path d="M42 76h36M60 86v18M40 104h40"/></svg></div>
+    <figcaption>IMG-04 · KOTEL + PLUMBER · LIME PIPES</figcaption>
+  </figure>
+  <div class="txt">
+    <span class="arrow-pill">DROP 03 + 08 →</span>
+    <h2 class="disp h2 rv">ГАЗОВЫЕ КОТЛЫ<br>+ САНТЕХНИКА<span class="dot-a">.</span></h2>
+    <ul class="plus-list">
+      <li>Диагностика → ремонт → гарантия</li><li>Котлы, колонки, автоматика, насосы</li>
+      <li>Смесители, сифоны, подводки, инсталляции</li><li>Без протечек. Точка.</li>
+    </ul>
+    <p class="price">ремонт котла от 1800 ₽ · сантехработы от 800 ₽</p>
+    <div style="margin-top:16px"><span class="sticker slap">60 МИН</span> <span class="sticker paper">ГАРАНТИЯ 12 МЕС</span></div>
+  </div>
+</section>
+
+<!-- 8. DROP 04 -->
+<section id="ac" class="drop rev" aria-label="Drop 04 кондиционеры">
+  <div class="num" aria-hidden="true">04</div>
+  <figure class="shot kb" data-slot="img/08-cond.jpg" data-alt="Монтажник на высоте устанавливает кондиционер">
+    <div class="flow" aria-hidden="true">
+      <i style="left:12%;top:22%;animation-delay:0s"></i><i style="left:20%;top:40%;animation-delay:.5s"></i>
+      <i style="left:8%;top:58%;animation-delay:1.1s"></i><i style="left:30%;top:30%;animation-delay:1.7s"></i>
+      <i style="left:26%;top:64%;animation-delay:2.3s"></i>
+    </div>
+    <div class="temp" aria-hidden="true"><span id="tempN">32</span>°C</div>
+    <div class="wf" aria-hidden="true"><svg viewBox="0 0 120 120"><rect x="18" y="24" width="84" height="26" rx="4"/><path d="M28 60c8 10 8 22 0 32M60 60c8 10 8 22 0 32M92 60c8 10 8 22 0 32"/></svg></div>
+    <figcaption>IMG-08 · AC INSTALLATION · AIRFLOW</figcaption>
+  </figure>
+  <div class="txt">
+    <span class="arrow-pill">DROP 04 →</span>
+    <h2 class="disp h2 rv">КОНДИЦИОНЕРЫ<span class="dot-a">.</span></h2>
+    <ul class="plus-list">
+      <li>Монтаж под ключ, штробление, трассы</li><li>Обслуживание, дозаправка, чистка</li>
+      <li>Демонтаж и перенос</li>
+    </ul>
+    <p class="price">монтаж от 6500 ₽ · обслуживание от 2500 ₽</p>
+    <p class="mono-note" style="margin-top:10px">ПО СКРОЛЛУ: 32°C → 22°C. ФИЗИКА, НЕ ОБЕЩАНИЯ.</p>
+  </div>
+</section>
+
+<!-- 9. DROP 05 -->
+<section id="d5" class="drop" aria-label="Drop 05 дезинсекция">
+  <div class="num" aria-hidden="true">05</div>
+  <figure class="shot" data-slot="img/05-dez.jpg" data-alt="Дезинсектор в респираторе выпускает холодный туман">
+    <div class="fog" aria-hidden="true"></div>
+    <svg class="roach roach-a" viewBox="0 0 46 46" style="left:14%;top:20%" aria-hidden="true">
+      <ellipse class="body" cx="23" cy="23" rx="14" ry="9"/><path class="body" d="M9 23l-6-4M9 23l-6 4M37 23l6-4M37 23l6 4M23 14l-3-8M23 32l3 8"/>
+      <line class="x" x1="8" y1="8" x2="38" y2="38"/><line class="x" x1="38" y1="8" x2="8" y2="38"/>
+    </svg>
+    <svg class="roach roach-b" viewBox="0 0 46 46" style="right:16%;bottom:18%" aria-hidden="true">
+      <ellipse class="body" cx="23" cy="23" rx="14" ry="9"/><path class="body" d="M9 23l-6-4M9 23l-6 4M37 23l6-4M37 23l6 4M23 14l-3-8M23 32l3 8"/>
+      <line class="x" x1="8" y1="8" x2="38" y2="38"/><line class="x" x1="38" y1="8" x2="8" y2="38"/>
+    </svg>
+    <div class="wf" aria-hidden="true"><svg viewBox="0 0 120 120"><circle cx="60" cy="34" r="14"/><path d="M40 96c4-24 36-24 40 0M74 48l20-10"/><circle cx="100" cy="34" r="10"/></svg></div>
+    <figcaption>IMG-05 · COLD FOG · ROACH DELETE</figcaption>
+  </figure>
+  <div class="txt">
+    <span class="arrow-pill">DROP 05 →</span>
+    <h2 class="disp h2 rv">ДЕЗИНСЕКЦИЯ<span class="dot-a">.</span></h2>
+    <ul class="plus-list">
+      <li>Тараканы, клопы, муравьи, блохи</li><li>Дезинфекция (микробы, запахи) и дератизация (грызуны)</li>
+      <li>Холодный и горячий туман. Препараты для квартир с детьми и животными.</li>
+    </ul>
+    <div class="paper-strip" style="margin:18px 0">
+      <div style="display:flex;gap:24px;align-items:center;flex-wrap:wrap">
+        <span class="lbl">ДО ↘</span><span style="font-size:12px">СЕМЕЙСТВО В КУХНЕ</span>
+        <span class="lbl" style="margin-left:auto">↗ ПОСЛЕ</span><span style="font-size:12px">ПУСТО И ЧИСТО</span>
+      </div>
+    </div>
+    <p class="price">обработка квартиры от 1800 ₽ · гарантия 1 год</p>
+  </div>
+</section>
+
+<!-- 10. DROP 06 + 07 -->
+<section id="d6" class="drop rev" aria-label="Drop 06 химчистка мебели и 07 клининг">
+  <div class="num" aria-hidden="true">06·07</div>
+  <figure class="shot ba" data-slot="img/06-sofa.jpg" data-alt="Мастер с экстрактором чистит диван — до и после">
+    <div class="after"></div>
+    <div class="before"></div>
+    <div class="handle" aria-hidden="true"></div>
+    <span class="ba-tag" style="left:10px">ДО</span><span class="ba-tag" style="right:10px;color:var(--acid)">ПОСЛЕ</span>
+    <div class="wf" aria-hidden="true" style="z-index:1"><svg viewBox="0 0 120 120"><path d="M14 74h92M20 74V50a10 10 0 0 1 10-10h60a10 10 0 0 1 10 10v24M28 74v14M92 74v14"/></svg></div>
+    <figcaption>IMG-06 · SOFA EXTRACTOR · BEFORE/AFTER</figcaption>
+  </figure>
+  <div class="txt">
+    <span class="arrow-pill">DROP 06 + 07 →</span>
+    <h2 class="disp h2 rv">ХИМЧИСТКА<br>+ КЛИНИНГ<span class="dot-a">.</span></h2>
+    <ul class="plus-list">
+      <li>Диваны, матрасы, ковры, мягкие зоны</li><li>Экстрактор, пятновывод без следов</li>
+      <li>Клининг: квартиры, офисы, после ремонта</li>
+    </ul>
+    <p class="price">диван от 1500 ₽ · клининг квартиры от 2500 ₽</p>
+    <p class="mono-note" style="margin-top:10px">ШТОРКА 92% → 6% · ТЯНИ СКРОЛЛОМ</p>
+  </div>
+</section>
+
+<!-- 11. ОТЗЫВЫ -->
+<section id="revs" aria-label="Отзывы">
+  <div class="mono-note">// REVIEWS · STICKER BOMB</div>
+  <h2 class="disp h3 rv" style="margin:10px 0 30px">НАКЛЕЙКИ С РЕЙДА<span class="dot-a">.</span></h2>
+  <div class="cards">
+    <div class="review slap" style="transform:rotate(-2deg);position:relative">«Котёл умер в -18. Приехали за час, поменяли плату, прогрели за вечер.»<div class="who">Марина, Северный</div><div class="rate">★★★★★</div><div class="stamp">ПРОВЕРЕНО</div></div>
+    <div class="review slap" style="transform:rotate(1.5deg);position:relative">«Собрал кухню из IKEA за день, без „мастеров на неделю“. Цена — как договаривались.»<div class="who">Дмитрий, Центральный</div><div class="rate">★★★★★</div><div class="stamp">ПРОВЕРЕНО</div></div>
+    <div class="review slap" style="transform:rotate(-1deg);position:relative">«Туман от тараканов. Через сутки на кухне был только я. Гарантия год — дали акт.»<div class="who">Аноним</div><div class="rate">★★★★★</div><div class="stamp">ПРОВЕРЕНО</div></div>
+    <div class="review slap" style="transform:rotate(2deg);position:relative">«Диван после детей и кота — как новый. Ушёл в 22:00, забрал мусор сам.»<div class="who">Ольга, Западный</div><div class="rate">★★★★☆</div><div class="stamp">ПРОВЕРЕНО</div></div>
+  </div>
+  <div class="crosshair" style="left:6%;bottom:10%"></div>
+</section>
+
+<!-- 12. ФИНАЛ -->
+<section id="final" aria-label="Вызвать мастера">
+  <div class="mono-note" style="color:#0F0F0F">// FINAL DROP · INVERSION</div>
+  <h2 class="disp h1 rv" style="margin:14px 0 10px">ВЫЗВАТЬ<br>МАСТЕРА<span class="dot-w">.</span></h2>
+  <p class="marker" style="font-size:clamp(22px,3vw,36px);color:#0F0F0F">прямо сейчас → 60 минут и стук в дверь</p>
+  <div style="display:grid;grid-template-columns:1fr auto;gap:40px;align-items:start;margin-top:36px">
+    <form id="form" novalidate>
+      <div class="mono-note" style="color:var(--acid)">// ЗАЯВКА · BACKEND POINT: data-endpoint</div>
+      <label for="f-name">Имя</label>
+      <input id="f-name" name="name" type="text" autocomplete="name" placeholder="Как обращаться" required>
+      <div class="err" id="e-name">Укажите имя</div>
+      <label for="f-tel">Телефон</label>
+      <input id="f-tel" name="tel" type="tel" inputmode="tel" autocomplete="tel" placeholder="+7 (___) ___-__-__" required>
+      <div class="err" id="e-tel">Неверный номер телефона</div>
+      <label for="f-svc">Задача</label>
+      <select id="f-svc" name="service">
+        <option>01 · Мелкий ремонт</option><option>02 · Стиральные машины и бытовая техника</option>
+        <option>03 · Газовые котлы</option><option>04 · Кондиционеры</option><option>05 · Дезинсекция</option>
+        <option>06 · Химчистка мягкой мебели</option><option>07 · Клининг</option><option>08 · Сантехника</option>
+      </select>
+      <label for="f-msg">Комментарий</label>
+      <input id="f-msg" name="msg" type="text" placeholder="Что случилось?">
+      <button type="submit">ВЫЗВАТЬ МАСТЕРА →</button>
+      <div class="ok" role="status">✓ ЗАЯВКА УШЛА · ЖДИТЕ ЗВОНКА</div>
+    </form>
+    <div style="display:flex;flex-direction:column;gap:18px;align-items:flex-start">
+      <a class="tel" style="color:#0F0F0F" href="tel:+79991234567">+7 (999) 123-45-67</a>
+      <span class="sticker paper" style="box-shadow:5px 5px 0 #0F0F0F">КРУГЛОСУТОЧНО · 24/7</span>
+      <span class="drip" aria-hidden="true">:-(</span>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="barcode" aria-hidden="true" id="footBc"></div>
+  <div>© МУЖ НА ЧАС. · НЕ ОБЕЩАЕМ. ДЕЛАЕМ. · X:1920 Y:1080</div>
+  <div><a href="tel:+79991234567">+7 (999) 123-45-67</a> · <a href="#hero">НАВЕРХ ↑</a></div>
+</footer>
+
+<noscript><style>#pre{display:none}.slap{opacity:1}</style></noscript>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script>window.gsap||document.write('<script src="vendor/gsap.min.js"><\/script>')</script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>window.ScrollTrigger||document.write('<script src="vendor/ScrollTrigger.min.js"><\/script>')</script>
+<script>
+/* ================== МУЖ НА ЧАС. · v2 script ================== */
+/* ждём полного исполнения скриптов (в т.ч. defer ScrollTrigger), затем регистрируем плагин один раз */
+window.addEventListener('load',function(){ if(window.gsap&&window.ScrollTrigger){gsap.registerPlugin(ScrollTrigger);} });
+(function(){
+"use strict";
+var RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+var CLEAN = location.hash.indexOf('clean')>-1;
+if(CLEAN) document.body.classList.add('clean');
+var HAS_GSAP = typeof window.gsap !== 'undefined';
+if(HAS_GSAP && window.ScrollTrigger) gsap.registerPlugin(ScrollTrigger);
+var animOK = HAS_GSAP && !RM && !!window.ScrollTrigger;
+
+/* ---------- фото-слоты: lazy + onerror-фолбэк wireframe ---------- */
+document.querySelectorAll('.shot[data-slot]').forEach(function(fig){
+  if(fig.classList.contains('ba')) return; // ba обрабатывается отдельно
+  var src = fig.getAttribute('data-slot');
+  var img = new Image();
+  img.alt = fig.getAttribute('data-alt')||'';
+  img.loading='lazy'; img.decoding='async';
+  img.onerror=function(){ if(img.parentNode) img.parentNode.removeChild(img); /* остаётся .wf */ };
+  img.onload=function(){ var wf=fig.querySelector('.wf'); if(wf) wf.style.display='none'; };
+  img.src=src;
+  fig.insertBefore(img, fig.firstChild);
+});
+document.querySelectorAll('.ba').forEach(function(ba){
+  var src = ba.getAttribute('data-slot');
+  ['after','before'].forEach(function(cls){
+    var slot=ba.querySelector('.'+cls);
+    var img=new Image(); img.alt=''; img.loading='lazy';
+    img.onerror=function(){ if(img.parentNode) img.parentNode.removeChild(img); };
+    img.src=src; slot.appendChild(img);
+  });
+});
+
+/* ---------- баркоды ---------- */
+function barcode(el,n){var s='';for(var i=0;i<n;i++){s+='<i style="width:'+(2+Math.floor(Math.random()*4))+'px;opacity:'+(Math.random()>.3?1:.35)+'"></i>';}el.innerHTML=s;}
+var fb=document.getElementById('footBc'); if(fb) barcode(fb,42);
+
+/* ---------- тикер ---------- */
+var SVC=['МЕЛКИЙ РЕМОНТ','СТИРАЛЬНЫЕ МАШИНЫ','ГАЗОВЫЕ КОТЛЫ','КОНДИЦИОНЕРЫ','ДЕЗИНСЕКЦИЯ','ХИМЧИСТКА МЕБЕЛИ','КЛИНИНГ','САНТЕХНИКА'];
+var tt=document.getElementById('tickTrack');
+if(tt){var half=SVC.map(function(s,i){return '<b>'+String(i+1).padStart(2,'0')+' <em>+</em> '+s+'</b>';}).join('');tt.innerHTML=half+half;}
+
+/* ---------- прелоад: шторка вверх (гарантированное закрытие) ---------- */
+var pre=document.getElementById('pre');
+var preClosed=false;
+function closePre(){ if(preClosed)return; preClosed=true; if(pre){pre.classList.add('pre-done'); setTimeout(function(){ if(pre&&pre.parentNode) pre.remove(); },900);} }
+var PRE_T=[1350,1750]; // scan-burst @1.35s → shutter @1.75s (цепочка CSS-прелоада)
+if(RM || !HAS_GSAP){ closePre(); }
+else {
+  // закрываем по wall-clock и дублируем на document.hidden/complete — гарантия в любом окружении
+  setTimeout(closePre,PRE_T[1]);
+  if(document.readyState==='complete') setTimeout(closePre,PRE_T[1]);
+  else addEventListener('load',function(){ setTimeout(closePre,PRE_T[1]); });
+  setTimeout(closePre,4000); // жёсткая страховка
+}
+
+/* ---------- scramble-декод H1 ---------- */
+function scramble(el){
+  var fin=el.getAttribute('data-final')||el.textContent;
+  if(RM || !HAS_GSAP){ el.textContent=fin; return; }
+  var pool='АБВГДЕЖЗИКЛМНОПРСТУФХЦЧШЩЭЮЯ01#*/';
+  var frame=0, total=fin.length*3+18;
+  var t=setInterval(function(){
+    frame++;
+    var out='';
+    for(var i=0;i<fin.length;i++){
+      if(fin[i]===' '){out+=' ';continue;}
+      var reveal=i*3+10;
+      out+= frame>reveal ? fin[i] : pool[Math.floor(Math.random()*pool.length)];
+    }
+    el.textContent=out;
+    if(frame>total){clearInterval(t);el.textContent=fin;}
+  },45);
+}
+document.querySelectorAll('.scramble').forEach(scramble);
+
+/* ---------- звук шлепка (WebAudio щелчок) ---------- */
+var actx=null;
+function slapSound(){ if(RM)return; try{ actx=actx||new (window.AudioContext||window.webkitAudioContext)();
+  var o=actx.createOscillator(),g=actx.createGain(); o.type='square'; o.frequency.value=90;
+  g.gain.setValueAtTime(.0001,actx.currentTime); g.gain.exponentialRampToValueAtTime(.12,actx.currentTime+.01);
+  g.gain.exponentialRampToValueAtTime(.0001,actx.currentTime+.12); o.connect(g);g.connect(actx.destination);
+  o.start();o.stop(actx.currentTime+.13);}catch(e){}
+}
+
+/* ---------- моушн-сцены ---------- */
+function makeSlaps(){
+  if(!animOK){ document.querySelectorAll('.slap').forEach(function(e){e.style.opacity=1;}); return; }
+  document.querySelectorAll('.slap').forEach(function(el){
+    var rot=(Math.random()*20-10);
+    ScrollTrigger.create({trigger:el,start:'top 88%',once:true,onEnter:function(){
+      slapSound();
+      gsap.fromTo(el,{opacity:0,scale:1.7,rotation:rot},{opacity:1,scale:1,rotation:rot*.35,duration:.45,ease:'back.out(4)'});
+    }});
+  });
+}
+function makeReveals(){
+  if(!animOK) return;
+  document.querySelectorAll('.rv').forEach(function(el){
+    gsap.fromTo(el,{y:44,opacity:0},{y:0,opacity:1,duration:.7,ease:'expo.out',
+      scrollTrigger:{trigger:el,start:'top 85%',once:true}});
+  });
+}
+function makeIndexStagger(){
+  var rows=document.querySelectorAll('#index .row');
+  if(!animOK){rows.forEach(function(r){r.style.opacity=1;});return;}
+  rows.forEach(function(r){r.style.opacity=0;});
+  ScrollTrigger.create({trigger:'#index',start:'top 70%',once:true,onEnter:function(){
+    gsap.fromTo(rows,{opacity:0,y:20},{opacity:1,y:0,duration:.35,stagger:.07,ease:'power4.out'});
+  }});
+}
+function makeBubble(){ /* Drop01 пузырёк уровня cx 66→80 */
+  if(!animOK) return; var c=document.querySelector('#d1 .cx'); if(!c) return;
+  gsap.to(c,{attr:{cx:80},scrollTrigger:{trigger:'#d1',start:'top bottom',end:'bottom top',scrub:true}});
+}
+function makeSchemaDraw(){ /* Drop02/03 stroke-draw wireframe */
+  if(!animOK) return;
+  document.querySelectorAll('.dw').forEach(function(p){
+    var L=p.getTotalLength?p.getTotalLength():300;
+    p.style.strokeDasharray=L; p.style.strokeDashoffset=L;
+    var sec=p.closest('section'); if(!sec) return;
+    gsap.to(p,{strokeDashoffset:0,scrollTrigger:{trigger:sec,start:'top 75%',end:'center center',scrub:true}});
+  });
+}
+function makeNeedle(){ /* Drop03 needle -95°→35° */
+  if(!animOK) return;
+  var nd=document.querySelector('#d3 .needle');
+  if(nd) gsap.to(nd,{rotation:35,transformOrigin:'60px 60px',scrollTrigger:{trigger:'#d3',start:'top bottom',end:'center center',scrub:true}});
+}
+function makeTemp(){ /* Drop04 32→22 + текстовый счётчик */
+  var el=document.getElementById('tempN'); if(!el) return;
+  if(!animOK){el.textContent='22';return;}
+  var o={v:32};
+  ScrollTrigger.create({trigger:'#ac',start:'top bottom',end:'bottom top',scrub:true,onUpdate:function(self){
+    el.textContent=Math.round(32+(22-32)*self.progress);
+  }});
+}
+function makeFogRoaches(){ /* Drop05 fog .2→1.55 + шлепки тараканов */
+  var f=document.querySelector('#d5 .fog');
+  if(!animOK){if(f)f.style.transform='scale(1.55)';document.querySelectorAll('#d5 .roach').forEach(function(r){r.style.opacity=1;});return;}
+  if(f) gsap.fromTo(f,{scale:.2,opacity:.15},{scale:1.55,opacity:.8,ease:'none',scrollTrigger:{trigger:'#d5',start:'top bottom',end:'bottom top',scrub:true}});
+  document.querySelectorAll('#d5 .roach').forEach(function(r,i){
+    r.style.opacity=0;
+    ScrollTrigger.create({trigger:'#d5',start:'center 70%',once:true,onEnter:function(){
+      slapSound();
+      gsap.fromTo(r,{opacity:0,scale:2.2,rotation:(i?-14:12)},{opacity:1,scale:1,rotation:(i?6:-6),duration:.4,ease:'back.out(4)',delay:.2+i*.25});
+    }});
+  });
+}
+function makeBA(){ /* Drop06/07 clip 92%→6% + ручка */
+  var before=document.querySelector('#d6 .before'), handle=document.querySelector('#d6 .handle');
+  if(!before||!handle) return;
+  if(!animOK){before.style.clipPath='inset(0 0 0 6%)';handle.style.left='6%';return;}
+  var o={p:92};
+  gsap.to(o,{p:6,ease:'none',scrollTrigger:{trigger:'#d6',start:'top bottom',end:'bottom top',scrub:true,
+    onUpdate:function(){before.style.clipPath='inset(0 0 0 '+o.p+'%)';handle.style.left=o.p+'%';}}});
+}
+function makeProg(){
+  var pr=document.getElementById('prog'); if(!pr) return;
+  function upd(){var h=document.documentElement;var p=h.scrollTop/(h.scrollHeight-h.clientHeight||1);pr.style.width=(p*100)+'%';}
+  addEventListener('scroll',upd,{passive:true});upd();
+}
+
+/* ---------- автоплей ~80 сек (жёсткие snap-склейки сцен) ---------- */
+var SCEN=['#hero','#manifest','#index','#board','#d1','#d2','#d3','#ac','#d5','#d6','#revs','#final'];
+var apOn=false, apTimers=[], apCancel=null;
+function stopAp(){
+  apOn=false;
+  if(apRaf){cancelAnimationFrame(apRaf);apRaf=null;}
+  document.body.classList.remove('ap-play');
+  apTimers.forEach(clearTimeout); apTimers=[];
+  if(apCancel){['wheel','touchstart','keydown'].forEach(function(ev){removeEventListener(ev,apCancel);});apCancel=null;}
+  var b=document.getElementById('apBtn'); if(b)b.textContent='▶ АВТОПЛЕЙ 80s';
+}
+var apRaf=null;
+function smoothTo(target,dur){
+  // easeInOutQuad snap-переход без ScrollToPlugin
+  if(apRaf)cancelAnimationFrame(apRaf);
+  var from=window.pageYOffset, t0=performance.now();
+  target=Math.max(0,Math.min(target,document.documentElement.scrollHeight-innerHeight));
+  function step(t){
+    if(!apOn)return;
+    var p=Math.min(1,(t-t0)/dur), e=p<.5?2*p*p:1-Math.pow(-2*p+2,2)/2;
+    window.scrollTo(0,from+(target-from)*e);
+    if(p<1)apRaf=requestAnimationFrame(step);
+  }
+  apRaf=requestAnimationFrame(step);
+}
+function startAp(){
+  if(!HAS_GSAP||RM){alert('Автоплей требует GSAP и включённой анимации.');return;}
+  closePre();
+  document.body.classList.add('ap-play');
+  apOn=true; var b=document.getElementById('apBtn'); if(b)b.textContent='■ СТОП';
+  var targets=SCEN.map(function(s){return document.querySelector(s);}).filter(Boolean);
+  // тайминг: 12 сцен × ~6.6с ≈ 80 сек
+  var step=(80/targets.length)*1000;
+  targets.forEach(function(el,i){
+    apTimers.push(setTimeout(function(){
+      if(!apOn)return;
+      var y=el.getBoundingClientRect().top+window.pageYOffset-Math.round(innerHeight*0.05);
+      smoothTo(y,1100);
+    },i*step));
+  });
+  apTimers.push(setTimeout(stopAp,targets.length*step+1500));
+  apCancel=function(){ if(apOn) stopAp(); };
+  ['wheel','touchstart','keydown'].forEach(function(ev){addEventListener(ev,apCancel,{passive:true});});
+}
+(function initApBtn(){
+  var b=document.createElement('button'); b.id='apBtn'; b.textContent='▶ АВТОПЛЕЙ 80s';
+  b.setAttribute('aria-label','Запустить автоплей истории на 80 секунд');
+  b.onclick=function(){ apOn?stopAp():startAp(); };
+  document.body.appendChild(b);
+})();
+
+/* ---------- форма ---------- */
+var form=document.getElementById('form');
+if(form){
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    var ok=true;
+    var name=document.getElementById('f-name'), tel=document.getElementById('f-tel');
+    var en=document.getElementById('e-name'), et=document.getElementById('e-tel');
+    en.style.display='none'; et.style.display='none';
+    if(name.value.trim().length<2){en.style.display='block';ok=false;}
+    var digits=(tel.value.match(/\d/g)||[]);
+    if(digits.length<10){et.style.display='block';ok=false;}
+    if(!ok)return;
+    // ТОЧКА ПОДКЛЮЧЕНИЯ БЭКЕНДА / TELEGRAM-БОТА: form data-endpoint="..."
+    var endpoint=form.getAttribute('data-endpoint')||'';
+    var payload={name:name.value,tel:tel.value,service:document.getElementById('f-svc').value,msg:document.getElementById('f-msg').value,ts:Date.now()};
+    function sent(){form.classList.add('sent');form.reset();}
+    if(endpoint){ fetch(endpoint,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)}).then(sent).catch(sent); }
+    else { setTimeout(sent,400); } // demo-режим без бэка
+  });
+}
+
+/* ---------- init ---------- */
+function init(){
+  makeProg(); makeSlaps(); makeReveals(); makeIndexStagger(); makeBubble();
+  makeSchemaDraw(); makeNeedle(); makeTemp(); makeFogRoaches(); makeBA();
+  if(animOK) ScrollTrigger.refresh();
+}
+if(document.readyState!=='loading') init(); else addEventListener('DOMContentLoaded',init);
+addEventListener('load',function(){ if(animOK) setTimeout(function(){ScrollTrigger.refresh();},300); });
+})();
+</script>
+</body>
+</html>
