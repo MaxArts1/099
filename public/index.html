@@ -1,10 +1,46 @@
 <!doctype html><html lang="ru"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>МУЖ НА ЧАС — scroll motion prototype v2</title>
+<title>МУЖ НА ЧАС. — выезд мастера за 60 мин · ремонт, электрика, сантехника 24/7</title>
+<meta name="description" content="Служба бытового ремонта «МУЖ НА ЧАС.». Мелкий ремонт, стиральные машины, газовые котлы, кондиционеры, дезинсекция, химчистка, клининг, сантехника. Выезд за 60 минут, гарантия 12 мес, оплата после работ. ☎ +7 (964) 940-65-56">
+<meta property="og:title" content="МУЖ НА ЧАС. — выезд мастера за 60 мин">
+<meta property="og:description" content="Не обещаем. Делаем. 8 направлений бытового ремонта. Выезд за 60 мин, гарантия 12 мес, оплата после работ.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://github.com/MaxArts1/099">
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Caveat:wght@700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <link rel="stylesheet" href="/motion.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "МУЖ НА ЧАС",
+  "description": "Служба бытового ремонта 24/7: мелкий ремонт, бытовая техника, газовые котлы, кондиционеры, дезинсекция, химчистка, клининг, сантехника.",
+  "telephone": "+79649406556",
+  "areaServed": "Москва и Московская область",
+  "openingHours": "Mo-Su 00:00-23:59",
+  "priceRange": "$$",
+  "address": {"@type": "PostalAddress", "addressLocality": "Москва"}
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "serviceType": "Бытовой ремонт",
+  "provider": {"@type": "LocalBusiness", "name": "МУЖ НА ЧАС", "telephone": "+79649406556"},
+  "hasVariant": [
+    {"@type": "Service", "name": "Мелкий ремонт"},
+    {"@type": "Service", "name": "Стиральные машины"},
+    {"@type": "Service", "name": "Газовые котлы"},
+    {"@type": "Service", "name": "Кондиционеры"},
+    {"@type": "Service", "name": "Дезинсекция"},
+    {"@type": "Service", "name": "Химчистка мебели"},
+    {"@type": "Service", "name": "Клининг"},
+    {"@type": "Service", "name": "Сантехника"}
+  ]
+}
+</script>
 <style>
 :root{--bg:#0F0F0F;--sf:#202020;--acid:#5DD62C;--deep:#337418;--paper:#F8F8F8}
 *{margin:0;padding:0;box-sizing:border-box}
@@ -97,7 +133,7 @@ section{position:relative;padding:14vh 6vw}
 <div id="prog"></div><div id="hud" class="mono">X:0 Y:0%</div>
 <button id="auto">▶ АВТОПРОИГРЫВАНИЕ · 80 СЕК</button>
 
-<header id="hero">
+<header id="hero" role="banner">
   <div>
     <div class="kick mono">СЛУЖБА БЫТОВОГО РЕМОНТА / 24/7</div>
     <h1><span id="t1">МУЖ</span><br><span id="t2">НА ЧАС</span><span class="dot">.</span></h1>
