@@ -1,289 +1,295 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SuperMaster — мастера на час</title>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>⚡</text></svg>">
-  <!-- Fonts: Plus Jakarta Sans (body) + Unbounded (display) + Material Symbols -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Unbounded:wght@600;700;800&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
-  <!-- GSAP + ScrollTrigger (premium animations, нативный скролл) -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-  <link rel="stylesheet" href="styles.css">
-</head>
-<body>
+<!doctype html><html lang="ru"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>МУЖ НА ЧАС — scroll motion prototype v2</title>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Caveat:wght@700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<link rel="stylesheet" href="/motion.css">
+<style>
+:root{--bg:#0F0F0F;--sf:#202020;--acid:#5DD62C;--deep:#337418;--paper:#F8F8F8}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--paper);font-family:'Anton',sans-serif;overflow-x:hidden}
+.mono{font-family:'JetBrains Mono',monospace;letter-spacing:.12em}
+.mk{font-family:'Caveat',cursive;color:var(--acid)}
+h1,h2{line-height:.92;text-transform:uppercase}
+h1{font-size:clamp(4rem,13vw,11rem)} h2{font-size:clamp(2.6rem,8vw,7rem)}
+.dot{color:var(--acid)}
+#grain{position:fixed;inset:0;z-index:90;pointer-events:none;opacity:.08;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E")}
+#pre{position:fixed;inset:0;z-index:99;background:var(--bg);display:grid;place-items:center}
+#pre .bar{width:230px;height:64px;background:repeating-linear-gradient(90deg,var(--paper) 0 2px,transparent 2px 5px,var(--paper) 5px 6px,transparent 6px 11px)}
+#pre .scan{position:absolute;width:240px;height:3px;background:var(--acid);box-shadow:0 0 20px var(--acid)}
+#pre .pt{position:absolute;bottom:18%;color:var(--acid);font-size:11px}
+#prog{position:fixed;right:0;top:0;width:4px;height:100%;background:var(--acid);transform:scaleY(0);transform-origin:top;z-index:95}
+#hud{position:fixed;left:12px;bottom:10px;z-index:95;color:var(--acid);font-size:10px}
+#auto{position:fixed;right:12px;bottom:10px;z-index:96;background:var(--sf);color:var(--acid);border:1px solid var(--acid);padding:.6rem .9rem;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em}
+body.clean #auto,body.clean #hud{display:none}
+.pill{display:inline-block;background:var(--acid);color:var(--bg);border-radius:999px;padding:.85rem 1.7rem;font-family:'JetBrains Mono',monospace;font-weight:700;font-size:13px;letter-spacing:.1em;text-decoration:none}
+section{position:relative;padding:14vh 6vw}
+.ph{background:#161616;border:1px solid #262626;position:relative;display:grid;place-items:center;min-height:340px;overflow:hidden;box-shadow:inset 0 0 70px rgba(93,214,44,.14)}
+.ph svg{width:62%;stroke:var(--acid);fill:none;stroke-width:2.5;stroke-linecap:round}
+.ph .cap{position:absolute;left:10px;bottom:8px;color:var(--acid);font-size:10px}
+/* HERO */
+#hero{min-height:100vh;display:grid;grid-template-columns:1.2fr .8fr;align-items:center;padding-bottom:16vh}
+#hero .kick{color:var(--acid);font-size:12px;margin-bottom:2rem}
+#hero .hero-r{position:relative;display:grid;place-items:center}
+#hero .globe{position:absolute;width:70%;opacity:.5;stroke:var(--acid);fill:none;animation:spin 26s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.ticker{position:absolute;left:0;right:0;bottom:0;background:var(--acid);color:var(--bg);overflow:hidden;padding:.7rem 0}
+.ticker .track{display:flex;white-space:nowrap;animation:tick 22s linear infinite;font-family:'JetBrains Mono',monospace;font-weight:700;font-size:13px;letter-spacing:.14em}
+@keyframes tick{to{transform:translateX(-50%)}}
+/* MANIFEST */
+#manifest h2{font-size:clamp(3rem,10vw,9rem)}
+.sticks{display:flex;gap:1.4rem;flex-wrap:wrap;margin-top:3rem}
+.stick{background:var(--paper);color:var(--bg);font-family:'JetBrains Mono',monospace;font-weight:700;font-size:13px;padding:.7rem 1.2rem;border-radius:999px;box-shadow:5px 5px 0 var(--deep)}
+.stick.round{border-radius:50%;width:150px;height:150px;display:grid;place-items:center;text-align:center;line-height:1.3}
+/* INDEX */
+#index ul{list-style:none;margin-top:2rem;border-top:1px solid var(--sf)}
+#index li{display:flex;gap:1.4rem;align-items:center;padding:1.1rem .8rem;border-bottom:1px solid var(--sf);font-size:clamp(1.2rem,3vw,2.2rem);text-transform:uppercase;transition:.15s}
+#index li:hover{background:var(--acid);color:var(--bg)}
+#index li .n{color:var(--acid);font-family:'JetBrains Mono',monospace;font-size:12px}
+#index li:hover .n{color:var(--bg)}
+/* DROPS */
+.drop .head{display:flex;align-items:baseline;gap:1.5rem;flex-wrap:wrap}
+.drop .num{-webkit-text-stroke:2px var(--acid);color:transparent;font-size:clamp(4rem,12vw,10rem);line-height:1}
+.drop .tag{color:var(--acid);font-size:11px}
+.drop .note{color:#9a9a9a;font-size:12px;margin-top:1.4rem}
+.grid2{display:grid;grid-template-columns:1fr auto 1fr;gap:1.5rem;align-items:center;margin-top:3rem}
+.pipes{width:150px;stroke:var(--acid);fill:none;stroke-width:3;filter:drop-shadow(0 0 8px var(--acid))}
+/* AC particles */
+#ac .flow{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.pt2{position:absolute;width:6px;height:6px;border-radius:50%;background:var(--acid);opacity:0;animation:blow 3.2s linear infinite}
+@keyframes blow{0%{transform:translateX(0);opacity:0}12%{opacity:.85}100%{transform:translateX(70vw);opacity:0}}
+#temp{font-family:'JetBrains Mono',monospace;font-size:clamp(3rem,9vw,7rem);color:var(--acid)}
+/* DEZINSEKCIJA */
+#d5 .fog{position:absolute;width:340px;height:340px;border-radius:50%;background:radial-gradient(circle,rgba(93,214,44,.75),transparent 62%);filter:blur(34px);opacity:0}
+.roach{position:absolute;width:120px;background:var(--acid);padding:10px;border-radius:6px;transform:rotate(-6deg)}
+.roach .x{position:absolute;left:-8%;top:44%;width:116%;height:10px;background:#ff2d2d;transform:rotate(-24deg)}
+.torn{margin-top:5rem;background:var(--paper);color:var(--bg);padding:3rem 6vw 4rem;clip-path:polygon(0 6%,3% 2%,7% 7%,12% 3%,17% 8%,23% 2%,29% 7%,35% 3%,41% 8%,47% 2%,53% 7%,59% 3%,65% 8%,71% 2%,77% 7%,83% 3%,89% 8%,94% 3%,100% 7%,100% 100%,0 100%)}
+/* BA slider */
+.ba{position:relative;height:440px;margin-top:3rem;overflow:hidden;border:1px solid var(--sf)}
+.ba .dirty,.ba .clean{position:absolute;inset:0;display:grid;place-items:center}
+.ba .dirty{background:#242424;background-image:radial-gradient(circle at 28% 62%,#101010 0 46px,transparent 47px),radial-gradient(circle at 62% 30%,#151515 0 30px,transparent 31px)}
+.ba .clean{background:var(--paper);clip-path:inset(0 0 0 92%)}
+.ba .clean svg{stroke:var(--bg)}
+.ba .dirty svg{stroke:#6f6f6f}
+.ba .h{position:absolute;top:0;bottom:0;width:5px;background:var(--acid);left:92%;box-shadow:0 0 16px var(--acid)}
+.ba .h::after{content:'';position:absolute;top:50%;left:50%;width:26px;height:26px;border:4px solid var(--acid);border-radius:50%;transform:translate(-50%,-50%);background:var(--bg)}
+.strip{display:inline-block;background:var(--paper);color:var(--bg);font-family:'JetBrains Mono',monospace;font-weight:700;padding:.5rem .9rem;margin:.3rem;transform:rotate(-2deg)}
+/* REVIEWS / FINAL */
+.revs{display:flex;gap:1.6rem;flex-wrap:wrap;margin-top:3rem}
+.rev{background:var(--paper);color:var(--bg);max-width:300px;padding:1.4rem;font-family:'JetBrains Mono',monospace;font-size:12px;line-height:1.6;position:relative;box-shadow:6px 6px 0 var(--deep)}
+.rev b{display:block;margin-bottom:.5rem;font-size:13px}
+.rev .st{position:absolute;right:-10px;top:-14px;background:var(--acid);color:var(--bg);padding:.3rem .6rem;border-radius:999px;font-weight:700;transform:rotate(8deg)}
+#final{background:var(--acid);color:var(--bg);min-height:100vh;display:flex;flex-direction:column;justify-content:center}
+#final h2{font-size:clamp(3rem,11vw,10rem)}
+#final .tel{font-family:'JetBrains Mono',monospace;font-size:clamp(1.2rem,4vw,2.4rem);font-weight:700;margin:2rem 0}
+#final form{display:flex;gap:.8rem;flex-wrap:wrap;max-width:760px}
+#final input,#final select{background:var(--bg);color:var(--acid);border:none;padding:.9rem 1.1rem;font-family:'JetBrains Mono',monospace;font-size:13px;min-width:200px}
+#final button{background:var(--bg);color:var(--acid);border:none;border-radius:999px;padding:.9rem 1.8rem;font-family:'JetBrains Mono',monospace;font-weight:700;cursor:pointer}
+#final .foot{margin-top:5rem;font-size:11px;opacity:.75}
+#final .tel a{color:inherit;text-decoration:none}
+#lead-status{font-family:'JetBrains Mono',monospace}
+#lead-status.ok{color:var(--bg)}
+@media(max-width:860px){#hero{grid-template-columns:1fr}.grid2{grid-template-columns:1fr}.pipes{width:60%;margin:auto}}
+</style></head><body>
+<div id="grain"></div>
+<div id="pre"><div class="bar"></div><div class="scan"></div><div class="pt mono">SCAN…</div></div>
+<div id="prog"></div><div id="hud" class="mono">X:0 Y:0%</div>
+<button id="auto">▶ АВТОПРОИГРЫВАНИЕ · 80 СЕК</button>
 
-  <!-- ===== Плавающая стеклянная шапка ===== -->
-  <header class="site-header">
-    <div class="header-inner container" style="padding:8px 10px 8px 20px;max-width:1120px;margin:0 auto;">
-      <a class="logo" href="#" data-nav="home">
-        <span class="logo-icon">⚡</span>
-        <span class="font-display">Super<strong>Master</strong></span>
-      </a>
-      <nav class="main-nav">
-        <button class="nav-link active" data-nav="catalog">Услуги</button>
-        <button class="nav-link" data-nav="masters">Мастера</button>
-        <button class="nav-link" data-nav="orders">Мои заказы <span id="orders-count" class="count-badge" hidden>0</span></button>
-      </nav>
-      <div class="header-right">
-        <div class="city-select">
-          <span class="material-symbols-outlined" style="font-size:16px;">location_on</span>
-          <select id="header-city" title="Город"></select>
-        </div>
-        <button class="theme-toggle" id="theme-toggle" title="Тёмная тема" aria-label="Тёмная тема">
-          <span class="material-symbols-outlined" style="font-size:18px;">dark_mode</span>
-        </button>
-      </div>
-    </div>
-  </header>
-
-  <main>
-
-    <!-- ===== HERO ===== -->
-    <section id="home" class="hero">
-      <div class="container hero-inner">
-        <span class="hero-badge"><span class="material-symbols-outlined" style="font-size:14px;">verified</span> Проверенные мастера · гарантия до 2 лет</span>
-        <h1 class="font-display">Найдите мастера <span class="accent">за 5 минут</span></h1>
-        <p class="hero-sub">Ремонт, электрика, сантехника, уборка, сборка мебели и ремонт техники. Прозрачные цены, бронирование онлайн и оплата на сайте.</p>
-        <div class="search-bar">
-          <span class="material-symbols-outlined search-icon">search</span>
-          <input id="search-input" type="search" placeholder="Что нужно сделать? Например, укладка плитки" autocomplete="off">
-          <button id="search-btn" class="btn btn-amber">Найти</button>
-        </div>
-        <div class="hero-stats">
-          <div class="stat-card">
-            <div class="stat-icon" style="background:rgba(254,152,0,0.2);color:#ffb84d;"><span class="material-symbols-outlined">verified_user</span></div>
-            <div><span class="stat-number">2500+</span><span class="stat-label">выполнено заказов</span></div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-icon" style="background:rgba(26,86,219,0.25);color:#7aa2ff;"><span class="material-symbols-outlined">group</span></div>
-            <div><span class="stat-number">320+</span><span class="stat-label">проверенных мастеров</span></div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-icon" style="background:rgba(31,162,104,0.2);color:#4ade80;"><span class="material-symbols-outlined">schedule</span></div>
-            <div><span class="stat-number">24/7</span><span class="stat-label">приём заявок</span></div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-icon" style="background:rgba(255,255,255,0.12);color:#fff;"><span class="material-symbols-outlined">workspace_premium</span></div>
-            <div><span class="stat-number">до 2 лет</span><span class="stat-label">гарантия на работы</span></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===== Категории ===== -->
-    <section class="section">
-      <div class="container">
-        <div class="section-header">
-          <h2>Категории услуг</h2>
-          <p class="section-sub">Выберите направление — найдём лучшего мастера</p>
-        </div>
-        <div id="category-grid" class="category-grid"></div>
-      </div>
-    </section>
-
-    <!-- ===== CTA Banner ===== -->
-    <div class="cta-banner">
-      <div class="cta-content">
-        <h2>Не знаете, какой мастер нужен?</h2>
-        <p>Опишите задачу — подберём специалиста и назовём цену за 5 минут.</p>
-      </div>
-      <button class="btn btn-amber" data-nav="catalog">Подобрать мастера</button>
-    </div>
-
-    <!-- ===== Каталог ===== -->
-    <section id="catalog" class="section">
-      <div class="container">
-        <div class="section-header">
-          <h2>Каталог услуг</h2>
-          <p class="section-sub" id="catalog-sub">Прозрачные цены · онлайн-бронирование</p>
-        </div>
-        <div id="catalog-filters" class="catalog-filters"></div>
-        <div id="services-grid" class="services-grid"></div>
-      </div>
-    </section>
-
-    <!-- ===== Мастера ===== -->
-    <section id="masters" class="section" hidden>
-      <div class="container">
-        <div class="section-header">
-          <h2>Наши мастера</h2>
-          <p class="section-sub">Все специалисты проверены: паспорт, отзывы и гарантия на работы.</p>
-        </div>
-        <div id="masters-grid" class="masters-grid"></div>
-      </div>
-    </section>
-
-    <!-- ===== Заказы ===== -->
-    <section id="orders" class="section" hidden>
-      <div class="container">
-        <div class="section-header">
-          <h2>Мои заказы</h2>
-          <p class="section-sub">Здесь живут все бронирования, сделанные в этом браузере.</p>
-        </div>
-        <div id="orders-list" class="orders-list"></div>
-      </div>
-    </section>
-
-    <!-- ===== Как это работает ===== -->
-    <section id="how-it-works" class="section">
-      <div class="container">
-        <div class="section-header">
-          <h2>Как это работает</h2>
-          <p class="section-sub">От заявки до выполненной работы — 4 простых шага</p>
-        </div>
-        <div class="steps-grid">
-          <div class="step-card">
-            <div class="step-num">1</div>
-            <div class="step-title">Выберите услугу</div>
-            <div class="step-desc">Найдите нужную работу в каталоге с прозрачной ценой</div>
-          </div>
-          <div class="step-card">
-            <div class="step-num">2</div>
-            <div class="step-title">Выберите город и время</div>
-            <div class="step-desc">Подберите удобный слот — мастер подтвердит запись</div>
-          </div>
-          <div class="step-card">
-            <div class="step-num">3</div>
-            <div class="step-title">Мастер приедет</div>
-            <div class="step-desc">Выполнит работу точно в срок, гарантия на результат</div>
-          </div>
-          <div class="step-card">
-            <div class="step-num">4</div>
-            <div class="step-title">Оплатите удобно</div>
-            <div class="step-desc">Карта, наличные или СБП — как вам удобнее</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-  </main>
-
-  <!-- ===== Футер ===== -->
-  <footer class="site-footer">
-    <div class="container">
-      <div class="footer-inner">
-        <div class="footer-brand">
-          <a class="logo" href="#">
-            <span class="logo-icon">⚡</span>
-            <span class="font-display" style="font-size:1.1rem;color:#fff;">Super<strong style="color:#7aa2ff;">Master</strong></span>
-          </a>
-          <p>Маркетплейс домашних услуг: ремонт, электрика, сантехника, уборка. Проверенные мастера и прозрачные цены.</p>
-        </div>
-        <div class="footer-col">
-          <h4>Услуги</h4>
-          <a href="#" data-nav="catalog">Каталог</a>
-          <a href="#" data-nav="masters">Мастера</a>
-          <button class="nav-link" data-nav="orders">Мои заказы</button>
-        </div>
-        <div class="footer-col">
-          <h4>Компания</h4>
-          <a href="#" data-nav="orders">Как это работает</a>
-          <a href="#">Политика конфиденциальности</a>
-          <a href="#">Публичная оферта</a>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <span>© 2026 SuperMaster. Все права защищены.</span>
-        <span>Сделано с ⚡ для мастеров и клиентов</span>
-      </div>
-    </div>
-  </footer>
-
-  <!-- ===== Модалка бронирования ===== -->
-  <div id="booking-modal" class="modal-overlay" hidden>
-    <div class="modal">
-      <button class="modal-close" data-close-modal aria-label="Закрыть">✕</button>
-      <h3 id="booking-title">Бронирование</h3>
-      <div id="booking-summary" class="booking-summary"></div>
-      <form id="booking-form" class="booking-form">
-        <div class="form-row" id="city-row" hidden>
-          <label>Город
-            <select id="b-city" required></select>
-          </label>
-        </div>
-        <div class="form-row">
-          <label>Дата
-            <input type="date" id="b-date" required>
-          </label>
-          <label>Время
-            <select id="b-time" required></select>
-          </label>
-        </div>
-        <div class="form-row">
-          <label>Ваше имя
-            <input type="text" id="b-name" placeholder="Иван Петров" required>
-          </label>
-          <label>Телефон
-            <input type="tel" id="b-phone" placeholder="+7 900 000-00-00" required>
-          </label>
-        </div>
-        <div class="form-row">
-          <label>Адрес
-            <input type="text" id="b-address" placeholder="ул. Ленина, 10, кв. 5" required>
-          </label>
-        </div>
-        <label>Комментарий к заказу
-          <textarea id="b-comment" rows="2" placeholder="Опишите задачу подробнее — мастер подготовится"></textarea>
-        </label>
-        <div class="booking-total">
-          <span>Итого к оплате</span>
-          <strong id="booking-total-price">—</strong>
-        </div>
-        <button type="submit" class="btn btn-amber btn-block">Забронировать</button>
-        <p class="form-note">Оплата произойдёт после бронирования. Заказ отменится бесплатно в любой момент.</p>
-      </form>
-    </div>
+<header id="hero">
+  <div>
+    <div class="kick mono">СЛУЖБА БЫТОВОГО РЕМОНТА / 24/7</div>
+    <h1><span id="t1">МУЖ</span><br><span id="t2">НА ЧАС</span><span class="dot">.</span></h1>
+    <div class="mk" style="font-size:clamp(1.4rem,3vw,2.2rem);margin:1rem 0 2rem">не обещаем — делаем</div>
+    <a class="pill" href="#final">→ ВЫЗВАТЬ МАСТЕРА</a>
   </div>
-
-  <!-- ===== Модалка «Заказ создан / оплата» ===== -->
-  <div id="pay-modal" class="modal-overlay" hidden>
-    <div class="modal modal-narrow">
-      <button class="modal-close" data-close-modal aria-label="Закрыть">✕</button>
-      <div class="pay-success-icon">🎉</div>
-      <h3>Заказ создан!</h3>
-      <p class="muted" id="pay-modal-text" style="color:var(--slate);font-size:0.9rem;">Мастер уже получил уведомление. Чтобы закрепить запись, оплатите заказ.</p>
-      <div class="pay-summary" id="pay-summary"></div>
-      <div class="pay-actions">
-        <button id="pay-now-btn" class="btn btn-blue btn-block">Оплатить сейчас</button>
-        <button id="pay-later-btn" class="btn btn-ghost btn-block">Оплатить позже</button>
-      </div>
-    </div>
+  <div class="hero-r">
+    <svg class="globe" viewBox="0 0 200 200"><circle cx="100" cy="100" r="80"/><ellipse cx="100" cy="100" rx="80" ry="28"/><ellipse cx="100" cy="100" rx="28" ry="80"/><line x1="20" y1="100" x2="180" y2="100"/></svg>
+    <!-- ЗАМЕНИ НА ФОТО: <img src="master.jpg" style="filter:grayscale(1) drop-shadow(0 0 40px #5DD62C)"> -->
+    <div class="ph" style="min-height:420px"><svg viewBox="0 0 120 80"><rect x="10" y="25" width="60" height="28" rx="6"/><path d="M70 32h18l6 7-6 7H70z"/><line x1="94" y1="39" x2="116" y2="39"/><path d="M28 53v18h14"/></svg><span class="cap mono">ФОТО МАСТЕРА / ЧБ + РИМ-ЛАЙТ</span></div>
   </div>
+  <div class="ticker"><div class="track"><span>МЕЛКИЙ РЕМОНТ + СТИРАЛЬНЫЕ МАШИНЫ + ГАЗОВЫЕ КОТЛЫ + ДЕЗИНСЕКЦИЯ + ХИМЧИСТКА + КЛИНИНГ + КОНДИЦИОНЕРЫ + САНТЕХНИКА +&nbsp;</span><span>МЕЛКИЙ РЕМОНТ + СТИРАЛЬНЫЕ МАШИНЫ + ГАЗОВЫЕ КОТЛЫ + ДЕЗИНСЕКЦИЯ + ХИМЧИСТКА + КЛИНИНГ + КОНДИЦИОНЕРЫ + САНТЕХНИКА +&nbsp;</span></div></div>
+</header>
 
-  <!-- ===== Модалка профиля мастера ===== -->
-  <div id="master-modal" class="modal-overlay" hidden>
-    <div class="modal">
-      <button class="modal-close" data-close-modal aria-label="Закрыть">✕</button>
-      <div id="master-modal-content"></div>
-    </div>
+<section id="manifest"><h2>НЕ ОБЕЩАЕМ.<br>ДЕЛАЕМ.</h2>
+  <div class="sticks"><div class="stick slap">ВЫЕЗД ЗА 60 МИН</div><div class="stick slap">ГАРАНТИЯ 12 МЕС</div><div class="stick slap">ОПЛАТА ПОСЛЕ РАБОТ</div></div>
+</section>
+
+<section id="index"><div class="mono tag" style="color:var(--acid);font-size:11px">ИНДЕКС УСЛУГ / 08</div>
+  <ul>
+    <li><span class="n">01</span> МЕЛКИЙ РЕМОНТ <span>↗</span></li><li><span class="n">02</span> СТИРАЛЬНЫЕ МАШИНЫ И ТЕХНИКА <span>↗</span></li>
+    <li><span class="n">03</span> ГАЗОВЫЕ КОТЛЫ <span>↗</span></li><li><span class="n">04</span> КОНДИЦИОНЕРЫ <span>↗</span></li>
+    <li><span class="n">05</span> ДЕЗИНСЕКЦИЯ <span>↗</span></li><li><span class="n">06</span> ХИМЧИСТКА МЕБЕЛИ <span>↗</span></li>
+    <li><span class="n">07</span> КЛИНИНГ <span>↗</span></li><li><span class="n">08</span> САНТЕХНИКА <span>↗</span></li>
+  </ul>
+</section>
+
+<section class="drop" id="d1"><div class="head"><span class="num">01</span><h2>МЕЛКИЙ РЕМОНТ.</h2><span class="tag mono">DROP 01/08</span></div>
+  <div class="ph"><svg viewBox="0 0 160 90"><line x1="10" y1="40" x2="150" y2="40"/><rect x="60" y="26" width="40" height="14" rx="3"/><circle id="bub" cx="70" cy="33" r="4"/><path d="M30 40v30M130 40v30"/></svg><span class="cap mono">ПОЛКИ · РОЗЕТКИ · РУЧКИ · КАРНИЗЫ</span></div>
+  <p class="note mono">УРОВЕНЬ ЦЕНТРУЕТСЯ ПРИ СКРОЛЛЕ → ПУЗЫРЁК ВСТАЁТ В НОЛЬ</p>
+</section>
+
+<section class="drop" id="d2"><div class="head"><span class="num">02</span><h2>СТИРАЛЬНЫЕ МАШИНЫ.</h2><span class="tag mono">DROP 02/08</span></div>
+  <div class="ph" style="min-height:420px"><svg viewBox="0 0 260 140">
+    <rect class="draw" x="8" y="30" width="70" height="90" rx="6"/><circle class="draw" cx="43" cy="65" r="22"/>
+    <circle class="draw" cx="140" cy="65" r="30"/><path class="draw" d="M140 35V21M120 45l-12-10M160 45l12-10"/>
+    <path class="draw" d="M195 40q6 10 0 20q-6 10 0 20"/><circle class="draw" cx="205" cy="100" r="12"/>
+    <path class="draw" d="M232 40a14 14 0 1 1-.1 0M230 95a10 10 0 1 1-.1 0M244 47l-4 44"/>
+    <circle id="fault" cx="205" cy="100" r="17" stroke="#5DD62C" stroke-width="3" fill="none" opacity="0"/></svg>
+    <span class="cap mono">ВЗРЫВ-СХЕМА: БАРАБАН / ТЭН / НАСОС / РЕМЕНЬ · ДЕФЕКТ → ЗАМЕНА</span></div>
+  <p class="note mono">ДИАГНОСТИКА 0 ₽ · РЕМОНТ В ДЕНЬ ОБРАЩЕНИЯ</p>
+</section>
+
+<section class="drop" id="d3"><div class="head"><h2>КОТЛЫ. САНТЕХНИКА.</h2><span class="tag mono">DROP 03+08</span></div>
+  <div class="grid2">
+    <div class="ph"><svg viewBox="0 0 120 160"><rect x="25" y="10" width="70" height="100" rx="8"/><circle cx="60" cy="55" r="18"/><line id="needle" x1="60" y1="55" x2="60" y2="41" stroke-width="3"/><path d="M40 110v30M60 110v30M80 110v30"/></svg><span class="cap mono">КОТЁЛ · МАНОМЕТР</span></div>
+    <svg class="pipes" viewBox="0 0 200 200"><path class="draw" d="M10 40h60v60h60v60h60"/><path class="draw" d="M10 70h40v60h60v60"/></svg>
+    <div class="ph"><svg viewBox="0 0 120 120"><path d="M20 20h80v14H20z"/><path d="M60 34v20q0 14 14 14q14 0 14-14V44"/><path d="M40 60q-8 20 8 30"/></svg><span class="cap mono">САНТЕХНИКА · БЕЗ ПРОТЕЧЕК</span></div>
   </div>
+  <div class="sticks"><div class="stick round slap">ВЫЕЗД<br>ЗА 60 МИН</div></div>
+</section>
 
-  <!-- ===== FAQ / Частые вопросы ===== -->
-  <section id="faq" class="section">
-    <div class="container">
-      <h2 class="section-title">Частые вопросы</h2>
-      <div id="faq-list" class="faq-list"></div>
-    </div>
-  </section>
+<section class="drop" id="ac"><div class="head"><span class="num">04</span><h2>КОНДИЦИОНЕРЫ.</h2><span class="tag mono">DROP 04/08</span></div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:center;margin-top:3rem">
+    <div class="ph"><svg viewBox="0 0 160 90"><rect x="10" y="15" width="140" height="40" rx="8"/><line x1="25" y1="45" x2="135" y2="45"/><path d="M40 65q6 10 0 20M80 65q6 10 0 20M120 65q6 10 0 20"/></svg><span class="cap mono">МОНТАЖ / ОБСЛУЖИВАНИЕ</span></div>
+    <div><div id="temp">32°C</div><p class="note mono">ТЕМПЕРАТУРА ПАДАЕТ ПО СКРОЛЛУ → 22°C</p></div>
+  </div>
+  <div class="flow" id="flow"></div>
+</section>
 
-  <div id="toast" class="toast" hidden></div>
+<section class="drop" id="d5" style="padding-bottom:0"><div class="head"><span class="num">05</span><h2>ДЕЗИНСЕКЦИЯ.</h2><span class="tag mono">DROP 05/08</span></div>
+  <div class="ph" style="min-height:460px;margin-top:3rem">
+    <div class="fog" style="left:8%;top:20%"></div><div class="fog" style="left:40%;top:45%"></div><div class="fog" style="left:66%;top:15%"></div>
+    <svg style="width:40%;stroke:var(--paper);fill:none;stroke-width:2.5" viewBox="0 0 160 90"><rect x="30" y="35" width="70" height="26" rx="8"/><path d="M100 42h30l14 6-14 6h-30z"/><path d="M45 35V22h30"/></svg>
+    <div class="roach slap" style="left:6%;top:12%"><svg viewBox="0 0 80 80"><ellipse cx="40" cy="46" rx="13" ry="19" fill="#5a3413"/><circle cx="40" cy="24" r="8" fill="#5a3413"/><path stroke="#5a3413" stroke-width="3" fill="none" d="M40 12q-10-8-16-4M40 12q10-8 16-4M27 38l-14-6M27 50H11M27 60l-13 8M53 38l14-6M53 50h16M53 60l13 8"/></svg><div class="x"></div></div>
+    <div class="roach slap" style="right:6%;bottom:14%;transform:rotate(7deg)"><svg viewBox="0 0 80 80"><ellipse cx="40" cy="46" rx="13" ry="19" fill="#5a3413"/><circle cx="40" cy="24" r="8" fill="#5a3413"/><path stroke="#5a3413" stroke-width="3" fill="none" d="M40 12q-10-8-16-4M40 12q10-8 16-4M27 38l-14-6M27 50H11M27 60l-13 8M53 38l14-6M53 50h16M53 60l13 8"/></svg><div class="x"></div></div>
+    <span class="cap mono">ХОЛОДНЫЙ ТУМАН · БЕЗ ЗАПАХА · БЕЗОПАСНО ДЛЯ ДЕТЕЙ И ЖИВОТНЫХ</span>
+  </div>
+  <div class="torn"><div class="mono" style="font-weight:700;font-size:14px">ДО / ПОСЛЕ · ГАРАНТИЯ 1 ГОД</div><div class="mk" style="font-size:2rem;color:var(--deep)">тараканы не возвращаются. никогда.</div></div>
+</section>
 
-  <!-- ===== Мобильная нижняя навигация ===== -->
-  <nav class="mobile-bottom-nav">
-    <div class="mobile-nav-inner">
-      <button class="mobile-nav-btn active" data-nav="home"><span class="material-symbols-outlined">home</span>Главная</button>
-      <button class="mobile-nav-btn" data-nav="catalog"><span class="material-symbols-outlined">grid_view</span>Каталог</button>
-      <button class="mobile-nav-btn" data-nav="masters"><span class="material-symbols-outlined">group</span>Мастера</button>
-      <button class="mobile-nav-btn" data-nav="orders"><span class="material-symbols-outlined">receipt_long</span>Заказы</button>
-    </div>
-  </nav>
+<section class="drop" id="d6"><div class="head"><h2>ХИМЧИСТКА. КЛИНИНГ.</h2><span class="tag mono">DROP 06+07</span></div>
+  <div style="margin-top:1.4rem"><span class="strip">06 ХИМЧИСТКА</span><span class="strip" style="transform:rotate(2deg)">07 КЛИНИНГ</span></div>
+  <div class="ba"><div class="dirty"><svg style="width:46%;stroke:#6f6f6f;fill:none;stroke-width:2.5" viewBox="0 0 200 110"><rect x="20" y="45" width="160" height="45" rx="8"/><rect x="10" y="35" width="25" height="55" rx="8"/><rect x="165" y="35" width="25" height="55" rx="8"/><rect x="35" y="25" width="130" height="30" rx="6"/></svg></div>
+  <div class="clean"><svg style="width:46%;stroke:#0F0F0F;fill:none;stroke-width:2.5" viewBox="0 0 200 110"><rect x="20" y="45" width="160" height="45" rx="8"/><rect x="10" y="35" width="25" height="55" rx="8"/><rect x="165" y="35" width="25" height="55" rx="8"/><rect x="35" y="25" width="130" height="30" rx="6"/></svg></div>
+  <div class="h" id="bah"></div></div>
+  <p class="note mono">ТЯНЕШЬ СТРАНИЦУ → ТЯНЕШЬ ШТОРКУ ДО/ПОСЛЕ</p>
+</section>
 
-  <script src="app.js"></script>
-  <script src="animations.js"></script>
-</body>
-</html>
+<section id="revs"><div class="mono tag" style="color:var(--acid);font-size:11px">ОТЗЫВЫ / СТИКЕРЫ</div>
+  <div class="revs">
+    <div class="rev slap" style="transform:rotate(-3deg)"><span class="st">ПРОВЕРЕНО</span><b>ИГОРЬ · ХИМКИ</b>Котёл шипел и глох. Приехали за 45 минут, к вечеру тепло и тихо.</div>
+    <div class="rev slap" style="transform:rotate(2deg)"><span class="st">ПРОВЕРЕНО</span><b>МАРИНА · МЫТИЩИ</b>Диван после кота и ребёнка — как из магазина. Запаха нет вообще.</div>
+    <div class="rev slap" style="transform:rotate(-1deg)"><span class="st">ПРОВЕРЕНО</span><b>СЕРГЕЙ · БАЛАШИХА</b>Тараканы ушли с первого раза, год уже никого. Оплата после — как обещали.</div>
+  </div>
+</section>
+
+<section id="final"><h2>ВЫЗВАТЬ<br>МАСТЕРА.</h2>
+  <div class="tel"><a href="tel:+79991234567" style="color:inherit;text-decoration:none">+7 (999) 123-45-67</a></div>
+  <form id="lead-form" novalidate>
+    <input id="lf-name" name="name" placeholder="ИМЯ" autocomplete="name" required>
+    <input id="lf-phone" name="phone" placeholder="ТЕЛЕФОН" autocomplete="tel" required>
+    <select id="lf-service" name="service" required>
+      <option value="Мелкий ремонт">МЕЛКИЙ РЕМОНТ</option>
+      <option value="Стиральная машина">СТИРАЛЬНАЯ МАШИНА</option>
+      <option value="Газовый котёл">ГАЗОВЫЙ КОТЁЛ</option>
+      <option value="Кондиционер">КОНДИЦИОНЕР</option>
+      <option value="Дезинсекция">ДЕЗИНСЕКЦИЯ</option>
+      <option value="Химчистка">ХИМЧИСТКА</option>
+      <option value="Клининг">КЛИНИНГ</option>
+      <option value="Сантехника">САНТЕХНИКА</option>
+    </select>
+    <button id="lf-btn" type="submit">→ ОТПРАВИТЬ</button>
+  </form>
+  <div id="lead-status" class="mono" style="margin-top:1rem;font-size:11px;min-height:1.2em"></div>
+  <div class="foot mono">© 2026 МУЖ НА ЧАС · X:1920 Y:1080 · <span style="letter-spacing:-1px">|||丨||丨|||丨|</span></div>
+</section>
+
+<script>
+gsap.registerPlugin(ScrollTrigger);
+if(location.hash==='#clean')document.body.classList.add('clean');
+// PRELOAD: scan → burst → shutter
+gsap.timeline()
+ .fromTo('#pre .scan',{y:-46},{y:46,duration:.45,yoyo:true,repeat:3,ease:'power2.inOut'})
+ .to('#pre .scan',{scaleX:14,opacity:0,duration:.3,ease:'power4.in'})
+ .to('#pre',{yPercent:-100,duration:.7,ease:'expo.inOut'})
+ .add(()=>{scr(document.getElementById('t1'),'МУЖ',650);scr(document.getElementById('t2'),'НА ЧАС',900);});
+function scr(el,fin,dur){const ch='█▓▒#/\\+*<>МУЖНАЧС';const st=performance.now();
+ (function f(n){const t=Math.min(1,(n-st)/dur),r=Math.floor(fin.length*t);let o='';
+ for(let i=0;i<fin.length;i++)o+=i<r?fin[i]:ch[Math.random()*ch.length|0];
+ el.textContent=o;t<1?requestAnimationFrame(f):el.textContent=fin;})(st);}
+// stroke-draw по скроллу
+document.querySelectorAll('svg .draw').forEach(p=>{const L=p.getTotalLength();p.style.strokeDasharray=L;
+ gsap.fromTo(p,{strokeDashoffset:L},{strokeDashoffset:0,ease:'none',scrollTrigger:{trigger:p.closest('section'),start:'top 75%',end:'bottom 55%',scrub:true}});});
+// шлепки стикеров
+document.querySelectorAll('.slap').forEach(el=>gsap.from(el,{scale:1.7,rotation:'+=10',opacity:0,duration:.45,ease:'back.out(4)',scrollTrigger:{trigger:el,start:'top 88%'}}));
+// d1 пузырёк уровня
+gsap.fromTo('#bub',{attr:{cx:66}},{attr:{cx:80},ease:'none',scrollTrigger:{trigger:'#d1',start:'top 60%',end:'bottom 70%',scrub:true}});
+// d2 дефект: мигание → замена
+gsap.timeline({scrollTrigger:{trigger:'#d2',start:'top 30%',end:'bottom 45%',scrub:true}})
+ .to('#fault',{opacity:1,duration:.15}).to('#fault',{opacity:.15,duration:.08,repeat:5,yoyo:true}).to('#fault',{stroke:'#F8F8F8',opacity:1,duration:.05});
+// d3 стрелка манометра
+gsap.fromTo('#needle',{rotation:-95,svgOrigin:'60 55'},{rotation:35,svgOrigin:'60 55',ease:'none',scrollTrigger:{trigger:'#d3',start:'top 60%',end:'bottom 65%',scrub:true}});
+// d4 температура + частицы
+const T={v:32};gsap.to(T,{v:22,ease:'none',scrollTrigger:{trigger:'#ac',start:'top 60%',end:'bottom 70%',scrub:true},onUpdate:()=>document.getElementById('temp').textContent=Math.round(T.v)+'°C'});
+for(let i=0;i<26;i++){const s=document.createElement('span');s.className='pt2';s.style.top=(8+Math.random()*84)+'%';s.style.left='4%';s.style.animationDelay=(Math.random()*3)+'s';s.style.animationDuration=(2.4+Math.random()*2)+'s';document.getElementById('flow').appendChild(s);}
+// d5 туман
+gsap.fromTo('#d5 .fog',{scale:.2,opacity:0},{scale:1.55,opacity:.8,stagger:.18,ease:'none',scrollTrigger:{trigger:'#d5',start:'top 65%',end:'bottom 60%',scrub:true}});
+// d6 шторка до/после
+const B={p:92};gsap.to(B,{p:6,ease:'none',scrollTrigger:{trigger:'#d6',start:'top 55%',end:'bottom 70%',scrub:true},onUpdate:()=>{document.querySelector('#d6 .clean').style.clipPath=`inset(0 0 0 ${B.p}%)`;document.getElementById('bah').style.left=B.p+'%';}});
+// финал-панч
+gsap.from('#final h2',{yPercent:14,scale:.92,opacity:0,duration:.6,ease:'expo.out',scrollTrigger:{trigger:'#final',start:'top 70%'}});
+// HUD + прогресс
+addEventListener('scroll',()=>{const p=scrollY/(document.body.scrollHeight-innerHeight);
+ document.getElementById('prog').style.transform=`scaleY(${p})`;
+ document.getElementById('hud').textContent=`X:${Math.round(scrollY)} Y:${Math.round(p*100)}%`;},{passive:true});
+// АВТОПРОИГРЫВАНИЕ 80 сек
+let play=false,raf;
+document.getElementById('auto').onclick=()=>{play=true;const max=document.body.scrollHeight-innerHeight,from=scrollY,st=performance.now(),D=80000;
+ (function step(n){if(!play)return;let t=Math.min(1,(n-st)/D);t=t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;scrollTo(0,from+(max-from)*t);t<1?raf=requestAnimationFrame(step):play=false;})(st);};
+['wheel','touchstart','keydown'].forEach(e=>addEventListener(e,()=>{play=false;cancelAnimationFrame(raf);},{passive:true}));
+// reduced-motion: полностью гасим моушн
+if(matchMedia('(prefers-reduced-motion: reduce)').matches){gsap.globalTimeline.timeScale(0);ScrollTrigger.getAll().forEach(t=>t.kill());}
+// Загрузка услуг из каталога (fallback для select)
+(async()=>{try{const r=await fetch('/api/categories');const d=await r.json();if(Array.isArray(d)&&d.length){console.log('SuperMaster catalog ok:',d.length,'categories');}}catch(e){console.warn('catalog unavailable:',e.message);}})();
+// Форма → POST /api/orders (SuperMaster MVP)
+(function(){
+  const form=document.getElementById('lead-form');
+  const btn=document.getElementById('lf-btn');
+  const status=document.getElementById('lead-status');
+  if(!form) return;
+  form.addEventListener('submit', async (e)=>{
+    e.preventDefault();
+    const name=document.getElementById('lf-name').value.trim();
+    const phone=document.getElementById('lf-phone').value.trim();
+    const serviceText=document.getElementById('lf-service').value;
+    if(!name||!phone){status.textContent='⇢ ЗАПОЛНИ ИМЯ И ТЕЛЕФОН';status.style.color='var(--bg)';return;}
+    btn.disabled=true;btn.textContent='… ОТПРАВКА';status.textContent='';
+    try{
+      const svc=(await (await fetch('/api/services?q='+encodeURIComponent(serviceText))).json())[0];
+      const body={
+        service_id: svc ? svc.id : 1,
+        customer_name: name,
+        customer_phone: phone,
+        comment: 'Заявка с лендинга МУЖ НА ЧАС · услуга: '+serviceText,
+        date: new Date().toISOString().slice(0,10),
+        time: '12:00',
+        city_id: 1
+      };
+      const r=await fetch('/api/orders',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+      const d=await r.json();
+      if(r.status===201){
+        status.textContent='✓ ЗАЯВКА УШЛА — №'+d.id+(d.lead_status==='ok'?' · ЛИД В API':' · lead: '+(d.lead_status||'pending'));
+        form.reset();
+      } else {
+        status.textContent='⚠ '+(d.error||'Ошибка, попробуй ещё раз');
+      }
+    }catch(err){
+      status.textContent='⚠ '+err.message;
+    }finally{
+      btn.disabled=false;btn.textContent='→ ОТПРАВИТЬ';
+    }
+  });
+})();
+</script></body></html>

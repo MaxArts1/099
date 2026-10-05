@@ -1,0 +1,135 @@
+/* ================================================================
+   МУЖ НА ЧАС · MOTION SYSTEM v2 · animations.css
+   A: временные (loop/entrance) · B: scroll-driven CSS · C: hover · D: a11y
+   Easing-токены: --e-expo (шторки/склейки) · --e-back (шлепки) · --e-snap (жёсткие)
+================================================================ */
+:root{
+  --e-expo:cubic-bezier(.85,0,.15,1);
+  --e-back:cubic-bezier(.34,1.56,.64,1);
+  --e-snap:cubic-bezier(.9,0,.1,1);
+}
+
+/* ---------------- A. ВРЕМЕННЫЕ ---------------- */
+
+/* A1 · Бегущая строка услуг (hero-тикер, футер) — сцена 1 */
+@keyframes tick{to{transform:translateX(-50%)}}
+.ticker .track{animation:tick 22s linear infinite}
+.ticker:hover .track{animation-play-state:paused}
+
+/* A2 · Wireframe-глобус в hero */
+@keyframes spin{to{transform:rotate(360deg)}}
+.globe{animation:spin 26s linear infinite}
+
+/* A3 · Плёночное зерно: дёргаем фон шагами = «плёнка» */
+@keyframes grain{
+  0%{background-position:0 0}10%{background-position:-40px 30px}20%{background-position:30px -50px}
+  30%{background-position:-50px -20px}40%{background-position:40px 40px}50%{background-position:-30px 10px}
+  60%{background-position:50px -30px}70%{background-position:-20px 50px}80%{background-position:20px -40px}
+  90%{background-position:-40px -10px}100%{background-position:0 0}}
+#grain{animation:grain .9s steps(10) infinite}
+
+/* A4 · Прелоад (0:00–0:03): скан → вспышка линии → шторка вверх. Чистая цепочка delay */
+@keyframes scan-y{from{transform:translateY(-46px)}to{transform:translateY(46px)}}
+@keyframes scan-burst{to{transform:scaleX(14);opacity:0}}
+@keyframes shutter{to{transform:translateY(-100%)}}
+#pre .scan{animation:scan-y .45s var(--e-snap) 0s 3 alternate,
+                       scan-burst .3s var(--e-expo) 1.35s 1 forwards}
+#pre{animation:shutter .7s var(--e-expo) 1.75s forwards}
+
+/* A5 · Холопок стикера/печати (манифест, отзывы). --rot = финальный наклон наклейки */
+@keyframes slap{
+  0%{transform:scale(1.7) rotate(calc(var(--rot,0deg) + 10deg));opacity:0}
+  60%{transform:scale(.94) rotate(calc(var(--rot,0deg) - 2deg));opacity:1}
+  100%{transform:scale(1) rotate(var(--rot,0deg));opacity:1}}
+.slap{--rot:0deg;animation:slap .45s var(--e-back) both}
+.slap.r-3{--rot:-3deg}.slap.r2{--rot:2deg}.slap.r7{--rot:7deg}
+
+/* A6 · Drop 02: дефектная деталь появляется → мигает → становится исправной (белой) */
+@keyframes fault-on{to{opacity:1}}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.15}}
+@keyframes fault-ok{to{stroke:var(--paper)}}
+#fault{opacity:0;animation:fault-on .01s linear 2.1s forwards,
+                              blink .4s steps(2,end) 2.2s 5,
+                              fault-ok .01s linear 4.4s forwards}
+
+/* A7 · Drop 04: частицы холодного потока из блока */
+@keyframes blow{0%{transform:translateX(0);opacity:0}12%{opacity:.85}100%{transform:translateX(70vw);opacity:0}}
+.pt2{animation:blow 3.2s linear infinite}
+
+/* A8 · Пульс CTA-кнопок (hero + финал) */
+@keyframes cta-pulse{0%{box-shadow:0 0 0 0 rgba(93,214,44,.55)}100%{box-shadow:0 0 0 24px rgba(93,214,44,0)}}
+.pill,#final button{animation:cta-pulse 1.8s var(--e-expo) infinite}
+
+/* A9 · Неоновое дыхание контурных цифр и лайм-труб */
+@keyframes glow{0%,100%{filter:drop-shadow(0 0 4px rgba(93,214,44,.4))}50%{filter:drop-shadow(0 0 14px rgba(93,214,44,.9))}}
+.num,.pipes{animation:glow 2.6s ease-in-out infinite}
+
+/* A10 · Красный перечёрк таракана рисуется слева направо */
+@keyframes slash{from{transform:rotate(-24deg) scaleX(0)}to{transform:rotate(-24deg) scaleX(1)}}
+.roach .x{transform-origin:left center;animation:slash .3s var(--e-snap) .3s 1 both}
+
+/* A11 · Drip-смайл: капля стекает и исчезает (декор drop 06/07) */
+@keyframes drip{0%{transform:translateY(0);opacity:1}80%{opacity:1}100%{transform:translateY(26px);opacity:0}}
+.drip{animation:drip 2.4s var(--e-expo) infinite}
+
+/* A12 · Маркерное подчёркивание (Caveat) проявляется clip-path'ом */
+@keyframes mark{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
+.mk-u{animation:mark .6s var(--e-expo) both}
+
+/* ---------------- B. SCROLL-DRIVEN (Chrome 115+, без JS) ---------------- */
+/* Счётчик температуры через @property + counter: число падает 32→22 по скроллу */
+@property --t{syntax:'<integer>';initial-value:32;inherits:false}
+@keyframes tempfall{from{--t:32}to{--t:22}}
+@keyframes draw{to{stroke-dashoffset:0}}                 /* line-mask reveal схем */
+@keyframes needle{from{transform:rotate(-95deg)}to{transform:rotate(35deg)}}
+@keyframes bubble{from{cx:66px}to{cx:80px}}              /* пузырёк уровня */
+@keyframes ba-sweep{from{clip-path:inset(0 0 0 92%)}to{clip-path:inset(0 0 0 6%)}}
+@keyframes ba-handle{from{left:92%}to{left:6%}}
+@keyframes fog{from{transform:scale(.2);opacity:0}to{transform:scale(1.55);opacity:.8}}
+@keyframes rise{from{transform:translateY(70px);opacity:0}to{transform:none;opacity:1}}
+@keyframes tear{from{clip-path:inset(0 0 100% 0)}to{clip-path:inset(0 0 0 0)}}
+@keyframes prog{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+
+@supports (animation-timeline: view()){
+  /* прогресс-бар страницы от корневого скролла */
+  #prog{transform-origin:top;animation:prog linear both;animation-timeline:scroll(root)}
+  /* обводка схем: требуется pathLength="1" в разметке у всех .draw */
+  svg .draw{stroke-dasharray:1;stroke-dashoffset:1;
+    animation:draw linear both;animation-timeline:view();animation-range:entry 20% exit 60%}
+  #needle{transform-box:view-box;transform-origin:60px 55px;
+    animation:needle linear both;animation-timeline:view();animation-range:entry 30% exit 70%}
+  #bub{animation:bubble linear both;animation-timeline:view();animation-range:entry 20% exit 60%}
+  .ba .clean{animation:ba-sweep linear both;animation-timeline:view();animation-range:entry 40% exit 85%}
+  .ba .h{animation:ba-handle linear both;animation-timeline:view();animation-range:entry 40% exit 85%}
+  #d5 .fog{animation:fog linear both;animation-timeline:view();animation-range:entry 10% exit 70%}
+  .torn{animation:tear linear both;animation-timeline:view();animation-range:entry 10% entry 80%}
+  .reveal{animation:rise linear both;animation-timeline:view();animation-range:entry 0% entry 55%}
+  /* «шлепки», привязанные к скроллу (scrub-вариант A5) */
+  .slap-v{animation:slap linear both;animation-timeline:view();animation-range:entry 70% entry 100%}
+  .tempnum{animation:tempfall linear both;animation-timeline:view();animation-range:entry 20% exit 70%;
+    counter-reset:t var(--t)}
+  .tempnum::after{content:counter(t) "°C"}
+}
+
+/* ---------------- C. HOVER-МИКРА ---------------- */
+#index li{transition:background .15s var(--e-snap),color .15s,padding-left .25s var(--e-back)}
+#index li:hover{padding-left:1.6rem}
+#index li span:last-child{transition:transform .25s var(--e-back)}
+#index li:hover span:last-child{transform:translate(4px,-4px)}
+.pill{overflow:hidden}
+.pill span{display:inline-block;transition:transform .25s var(--e-back)}
+.pill:hover span{transform:translateX(6px)}
+.ph{transition:transform .3s var(--e-back),box-shadow .3s}
+.ph:hover{transform:translateY(-6px) rotate(-.4deg);
+  box-shadow:inset 0 0 90px rgba(93,214,44,.28),0 20px 60px rgba(0,0,0,.6)}
+.rev{transition:transform .3s var(--e-back)}
+.rev:hover{transform:rotate(0deg) scale(1.03)!important}
+.rev .st:hover{animation:slap .4s var(--e-back)}
+
+/* ---------------- D. ДОСТУПНОСТЬ ---------------- */
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;
+    transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .ticker .track{animation:none;transform:none}
+  #grain{animation:none}
+}
