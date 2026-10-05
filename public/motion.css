@@ -133,3 +133,14 @@
   .ticker .track{animation:none;transform:none}
   #grain{animation:none}
 }
+
+/* ---------------- A13 · Ken Burns 16s (фото мастеров) ---------------- */
+@keyframes kb{0%{transform:scale(1.05)}100%{transform:scale(1.18)}}
+.ph img,.ba img{animation:kb 16s ease-in-out infinite alternate}
+
+/* A14 · Лайм-скан-луч (по фото, 5.5s) */
+@keyframes sweep{0%{transform:translateX(-120%)}100%{transform:translateX(120%)}}
+.ph::after,.ba::after{content:'';position:absolute;top:0;left:0;width:120px;height:100%;
+  background:linear-gradient(90deg,transparent 0%,rgba(93,214,44,.12) 50%,transparent 100%);
+  animation:sweep 5.5s linear infinite;pointer-events:none;z-index:2}
+.ph,.ba{overflow:hidden}
