@@ -144,3 +144,32 @@
   background:linear-gradient(90deg,transparent 0%,rgba(93,214,44,.12) 50%,transparent 100%);
   animation:sweep 5.5s linear infinite;pointer-events:none;z-index:2}
 .ph,.ba{overflow:hidden}
+
+/* A15 · Дезинсекция: «выстрел» тумана от пушки + паразиты умирают (d5) */
+/* Пульс-блик из точки генератора: разрастается волной и гаснет */
+.mist-burst{position:absolute;left:20%;top:55%;width:180px;height:180px;margin:-90px 0 0 -90px;
+  border-radius:50%;pointer-events:none;z-index:3;opacity:0;
+  background:radial-gradient(circle,rgba(93,214,44,.9) 0%,rgba(93,214,44,.35) 40%,transparent 70%)}
+@keyframes mist-burst{
+  0%{transform:scale(.15);opacity:0}
+  18%{opacity:.95}
+  55%{transform:scale(2.6);opacity:.45}
+  100%{transform:scale(3.4);opacity:0}}
+#d5.on .mist-burst{animation:mist-burst 2.8s var(--e-expo) infinite}
+
+/* Паразиты: при включённом «выстреле» — тряска, поворот, побледнение и падение (смерть) */
+@keyframes roach-wriggle{0%,100%{transform:rotate(var(--rot,0deg))}
+  20%{transform:rotate(calc(var(--rot,0deg) - 4deg)) translateX(-3px)}
+  50%{transform:rotate(calc(var(--rot,0deg) + 5deg)) translateX(3px)}
+  80%{transform:rotate(calc(var(--rot,0deg) - 2deg))}}
+@keyframes roach-death{
+  0%{opacity:1;filter:none}
+  30%{opacity:.85;filter:saturate(.4) brightness(.8)}
+  60%{opacity:.4;filter:saturate(0) brightness(.5);transform:rotate(var(--rot,0deg)) translateY(8px) scale(.9)}
+  100%{opacity:0;filter:saturate(0);transform:rotate(calc(var(--rot,0deg) + 70deg)) translateY(26px) scale(.7)}}
+#d5.on .roach.r1{--rot:0deg;animation:roach-wriggle .8s ease-in-out infinite}
+#d5.on .roach.r2{--rot:7deg;animation:roach-wriggle .9s ease-in-out .12s infinite}
+#d5.on .roach.r3{--rot:-12deg;animation:roach-wriggle .7s ease-in-out .24s infinite}
+/* Смерть запускается по скроллу-триггеру через GSAP (класс .dead) */
+.roach.dead{animation:roach-death 1.6s var(--e-expo) both!important}
+.roach.dead .x{animation:slash .3s var(--e-snap) both}

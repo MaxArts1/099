@@ -50,9 +50,9 @@ body{background:var(--bg);color:var(--paper);font-family:'Anton',sans-serif;over
 h1,h2{line-height:.92;text-transform:uppercase}
 h1{font-size:clamp(4rem,13vw,11rem)} h2{font-size:clamp(2.6rem,8vw,7rem)}
 .dot{color:var(--acid)}
-.brand{position:fixed;top:0;left:0;z-index:95;display:flex;align-items:center;gap:10px;padding:14px 18px;background:var(--bg)}
-.brand img{height:56px;width:auto;filter:drop-shadow(0 0 14px rgba(93,214,44,.5))}
-.brand span{font-size:11px;font-weight:700;line-height:1.15;color:var(--paper)}
+.brand{position:fixed;top:0;left:0;z-index:95;display:flex;align-items:center;gap:14px;padding:16px 22px;background:var(--bg)}
+.brand img{height:84px;width:auto;filter:drop-shadow(0 0 18px rgba(93,214,44,.55))}
+.brand span{font-size:13px;font-weight:700;line-height:1.15;color:var(--paper)}
 .brand .mono{color:var(--acid)}
 #grain{position:fixed;inset:0;z-index:90;pointer-events:none;opacity:.08;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E")}
 #pre{position:fixed;inset:0;z-index:99;background:var(--bg);display:grid;place-items:center}
@@ -62,7 +62,7 @@ h1{font-size:clamp(4rem,13vw,11rem)} h2{font-size:clamp(2.6rem,8vw,7rem)}
 #prog{position:fixed;right:0;top:0;width:4px;height:100%;background:var(--acid);transform:scaleY(0);transform-origin:top;z-index:95}
 #hud{position:fixed;left:12px;bottom:10px;z-index:95;color:var(--acid);font-size:10px}
 #auto{position:fixed;right:12px;bottom:10px;z-index:96;background:var(--sf);color:var(--acid);border:1px solid var(--acid);padding:.6rem .9rem;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em}
-body.clean #auto,body.clean #hud{display:none}
+body.clean #hud{display:none}
 .pill{display:inline-block;background:var(--acid);color:var(--bg);border-radius:999px;padding:.85rem 1.7rem;font-family:'JetBrains Mono',monospace;font-weight:700;font-size:13px;letter-spacing:.1em;text-decoration:none}
 section{position:relative;padding:14vh 6vw}
 .ph{background:#161616;border:1px solid #262626;position:relative;display:grid;place-items:center;min-height:340px;overflow:hidden;box-shadow:inset 0 0 70px rgba(93,214,44,.14)}
@@ -130,12 +130,13 @@ section{position:relative;padding:14vh 6vw}
 #final .tel a{color:inherit;text-decoration:none}
 #lead-status{font-family:'JetBrains Mono',monospace}
 #lead-status.ok{color:var(--bg)}
-@media(max-width:860px){#hero{grid-template-columns:1fr;padding-top:80px}.grid2{grid-template-columns:1fr}.pipes{width:60%;margin:auto}.brand img{height:42px}.brand span{display:none}}
+#hero .ph{min-height:520px}
+#hero .ph img{width:100%;height:100%;object-fit:cover;opacity:.95}
+@media(max-width:860px){#hero{grid-template-columns:1fr;padding-top:110px}.grid2{grid-template-columns:1fr}.pipes{width:60%;margin:auto}.brand img{height:60px}.brand span{display:none}}
 </style></head><body>
 <div id="grain"></div>
 <div id="pre"><div class="bar"></div><div class="scan"></div><div class="pt mono">SCAN…</div></div>
 <div id="prog"></div><div id="hud" class="mono">X:0 Y:0%</div>
-<button id="auto">▶ АВТОПРОИГРЫВАНИЕ · 80 СЕК</button>
 
 <nav class="brand"><img src="img/logo.jpg" alt="SUPER MASTER — щит с мастером и топором"><span class="mono">SUPER<br>MASTER</span></nav>
 <header id="hero" role="banner">
@@ -204,8 +205,10 @@ section{position:relative;padding:14vh 6vw}
     <img src="img/05-dez.jpg" alt="Дезинсектор в защитке и респираторе, генератор тумана" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.5">
     <div class="fog" style="left:8%;top:20%"></div><div class="fog" style="left:40%;top:45%"></div><div class="fog" style="left:66%;top:15%"></div>
     <svg style="width:40%;stroke:var(--paper);fill:none;stroke-width:2.5" viewBox="0 0 160 90"><rect x="30" y="35" width="70" height="26" rx="8"/><path d="M100 42h30l14 6-14 6h-30z"/><path d="M45 35V22h30"/></svg>
-    <div class="roach slap" style="left:6%;top:12%"><svg viewBox="0 0 80 80"><ellipse cx="40" cy="46" rx="13" ry="19" fill="#5a3413"/><circle cx="40" cy="24" r="8" fill="#5a3413"/><path stroke="#5a3413" stroke-width="3" fill="none" d="M40 12q-10-8-16-4M40 12q10-8 16-4M27 38l-14-6M27 50H11M27 60l-13 8M53 38l14-6M53 50h16M53 60l13 8"/></svg><div class="x"></div></div>
-    <div class="roach slap" style="right:6%;bottom:14%;transform:rotate(7deg)"><svg viewBox="0 0 80 80"><ellipse cx="40" cy="46" rx="13" ry="19" fill="#5a3413"/><circle cx="40" cy="24" r="8" fill="#5a3413"/><path stroke="#5a3413" stroke-width="3" fill="none" d="M40 12q-10-8-16-4M40 12q10-8 16-4M27 38l-14-6M27 50H11M27 60l-13 8M53 38l14-6M53 50h16M53 60l13 8"/></svg><div class="x"></div></div>
+    <div class="roach r1" style="left:6%;top:12%"><svg viewBox="0 0 80 80"><ellipse cx="40" cy="46" rx="13" ry="19" fill="#5a3413"/><circle cx="40" cy="24" r="8" fill="#5a3413"/><path stroke="#5a3413" stroke-width="3" fill="none" d="M40 12q-10-8-16-4M40 12q10-8 16-4M27 38l-14-6M27 50H11M27 60l-13 8M53 38l14-6M53 50h16M53 60l13 8"/></svg><div class="x"></div></div>
+    <div class="roach r2" style="right:6%;bottom:14%;transform:rotate(7deg)"><svg viewBox="0 0 80 80"><ellipse cx="40" cy="46" rx="13" ry="19" fill="#5a3413"/><circle cx="40" cy="24" r="8" fill="#5a3413"/><path stroke="#5a3413" stroke-width="3" fill="none" d="M40 12q-10-8-16-4M40 12q10-8 16-4M27 38l-14-6M27 50H11M27 60l-13 8M53 38l14-6M53 50h16M53 60l13 8"/></svg><div class="x"></div></div>
+    <div class="roach r3" style="left:38%;bottom:8%;transform:rotate(-12deg)"><svg viewBox="0 0 80 80"><ellipse cx="40" cy="46" rx="13" ry="19" fill="#5a3413"/><circle cx="40" cy="24" r="8" fill="#5a3413"/><path stroke="#5a3413" stroke-width="3" fill="none" d="M40 12q-10-8-16-4M40 12q10-8 16-4M27 38l-14-6M27 50H11M27 60l-13 8M53 38l14-6M53 50h16M53 60l13 8"/></svg><div class="x"></div></div>
+    <div id="mist-burst" class="mist-burst" aria-hidden="true"></div>
     <span class="cap mono">ХОЛОДНЫЙ ТУМАН · БЕЗ ЗАПАХА · БЕЗОПАСНО ДЛЯ ДЕТЕЙ И ЖИВОТНЫХ</span>
   </div>
   <div class="torn"><div class="mono" style="font-weight:700;font-size:14px">ДО / ПОСЛЕ · ГАРАНТИЯ 1 ГОД</div><div class="mk" style="font-size:2rem;color:var(--deep)">тараканы не возвращаются. никогда.</div></div>
@@ -214,11 +217,11 @@ section{position:relative;padding:14vh 6vw}
 <section class="drop" id="d6"><div class="head"><h2>ХИМЧИСТКА. КЛИНИНГ.</h2><span class="tag mono">DROP 06+07</span></div>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-top:2.4rem">
     <div class="ph"><img src="img/07-klining.jpg" alt="Уборщик моет пол мокрой шваброй" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.9"><span class="cap mono">07 КЛИНИНГ · ПОЛЫ / ПОМЕЩЕНИЯ</span></div>
-    <div class="ba"><div class="dirty"><img src="img/06-sofa.jpg" alt="Мастер с экстрактором на диване" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.7"><svg style="width:46%;stroke:#6f6f6f;fill:none;stroke-width:2.5" viewBox="0 0 200 110"><rect x="20" y="45" width="160" height="45" rx="8"/><rect x="10" y="35" width="25" height="55" rx="8"/><rect x="165" y="35" width="25" height="55" rx="8"/><rect x="35" y="25" width="130" height="30" rx="6"/></svg></div>
-  <div class="clean"><svg style="width:46%;stroke:#0F0F0F;fill:none;stroke-width:2.5" viewBox="0 0 200 110"><rect x="20" y="45" width="160" height="45" rx="8"/><rect x="10" y="35" width="25" height="55" rx="8"/><rect x="165" y="35" width="25" height="55" rx="8"/><rect x="35" y="25" width="130" height="30" rx="6"/></svg></div>
+    <div class="ba"><div class="dirty"><img src="img/06-sofa.jpg" alt="Мастер с экстрактором на диване" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.55;filter:saturate(.35) brightness(.8) contrast(.9)"><span class="cap mono" style="color:#999">ДО · ЗАПЯТНАННЫЙ</span></div>
+  <div class="clean" style="background:var(--sf)"><img src="img/06-sofa.jpg" alt="Отчищенный диван после химчистки" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.95"><span class="cap mono">ПОСЛЕ · КАК ИЗ МАГАЗИНА</span></div>
   <div class="h" id="bah"></div></div>
   </div>
-  <p class="note mono">ТЯНЕШЬ СТРАНИЦУ → ТЯНЕШЬ ШТОРКУ ДО/ПОСЛЕ</p>
+  <p class="note mono">ДО / ПОСЛЕ · ШТОРКА ЗАКРЫВАЕТ СМЯТЫЙ ДИВАН — И ПОКАЗЫВАЕТ ЧИСТЫЙ</p>
 </section>
 
 <section id="revs"><div class="mono tag" style="color:var(--acid);font-size:11px">ОТЗЫВЫ / СТИКЕРЫ</div>
@@ -279,8 +282,18 @@ gsap.fromTo('#needle',{rotation:-95,svgOrigin:'60 55'},{rotation:35,svgOrigin:'6
 // d4 температура + частицы
 const T={v:32};gsap.to(T,{v:22,ease:'none',scrollTrigger:{trigger:'#ac',start:'top 60%',end:'bottom 70%',scrub:true},onUpdate:()=>document.getElementById('temp').textContent=Math.round(T.v)+'°C'});
 for(let i=0;i<26;i++){const s=document.createElement('span');s.className='pt2';s.style.top=(8+Math.random()*84)+'%';s.style.left='4%';s.style.animationDelay=(Math.random()*3)+'s';s.style.animationDuration=(2.4+Math.random()*2)+'s';document.getElementById('flow').appendChild(s);}
-// d5 туман
+// d5 туман + «выстрел» пушки + паразиты умирают
 gsap.fromTo('#d5 .fog',{scale:.2,opacity:0},{scale:1.55,opacity:.8,stagger:.18,ease:'none',scrollTrigger:{trigger:'#d5',start:'top 65%',end:'bottom 60%',scrub:true}});
+ScrollTrigger.create({trigger:'#d5',start:'top 60%',onEnter:()=>document.getElementById('d5').classList.add('on'),onLeaveBack:()=>document.getElementById('d5').classList.remove('on')});
+// Тараканы: тряска есть, а «смерть» (pale → fall) идёт с задержкой после входа в зону
+['.roach.r1','.roach.r2','.roach.r3'].forEach((sel,i)=>{
+  gsap.to(sel,{
+    opacity:0,rotation:'+=70',y:26,scale:.7,filter:'saturate(0)',
+    duration:1.4,ease:'expo.out',delay:.9+i*.55,
+    scrollTrigger:{trigger:'#d5',start:'top 45%',once:true}
+  });
+  gsap.to(sel+' .x',{scaleX:1,duration:.3,ease:'snap.out',delay:1.2+i*.55,scrollTrigger:{trigger:'#d5',start:'top 45%',once:true}});
+});
 // d6 шторка до/после
 const B={p:92};gsap.to(B,{p:6,ease:'none',scrollTrigger:{trigger:'#d6',start:'top 55%',end:'bottom 70%',scrub:true},onUpdate:()=>{document.querySelector('#d6 .clean').style.clipPath=`inset(0 0 0 ${B.p}%)`;document.getElementById('bah').style.left=B.p+'%';}});
 // финал-панч
@@ -289,11 +302,6 @@ gsap.from('#final h2',{yPercent:14,scale:.92,opacity:0,duration:.6,ease:'expo.ou
 addEventListener('scroll',()=>{const p=scrollY/(document.body.scrollHeight-innerHeight);
  document.getElementById('prog').style.transform=`scaleY(${p})`;
  document.getElementById('hud').textContent=`X:${Math.round(scrollY)} Y:${Math.round(p*100)}%`;},{passive:true});
-// АВТОПРОИГРЫВАНИЕ 80 сек
-let play=false,raf;
-document.getElementById('auto').onclick=()=>{play=true;const max=document.body.scrollHeight-innerHeight,from=scrollY,st=performance.now(),D=80000;
- (function step(n){if(!play)return;let t=Math.min(1,(n-st)/D);t=t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;scrollTo(0,from+(max-from)*t);t<1?raf=requestAnimationFrame(step):play=false;})(st);};
-['wheel','touchstart','keydown'].forEach(e=>addEventListener(e,()=>{play=false;cancelAnimationFrame(raf);},{passive:true}));
 // reduced-motion: полностью гасим моушн
 if(matchMedia('(prefers-reduced-motion: reduce)').matches){gsap.globalTimeline.timeScale(0);ScrollTrigger.getAll().forEach(t=>t.kill());}
 // Загрузка услуг из каталога (fallback для select)
