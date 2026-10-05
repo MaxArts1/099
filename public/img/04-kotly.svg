@@ -1,0 +1,7 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+<rect width="800" height="600" fill="#161616"/>
+<rect x="8" y="8" width="784" height="584" fill="none" stroke="#5DD62C" stroke-width="1.5" opacity="0.4"/>
+<circle cx="760" cy="40" r="12" fill="none" stroke="#5DD62C" stroke-width="2"/>
+<line x1="20" y1="580" x2="20" y2="560" stroke="#5DD62C" stroke-width="2"/>
+<text x="40" y="555" font-family="monospace" font-size="14" fill="#5DD62C" opacity="0.6">boiler · ФОТО ЗАГЛУШКА · ЧБ + РИМ-ЛАЙМ</text>
+</svg>
