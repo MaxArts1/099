@@ -191,6 +191,7 @@ section{position:relative;padding:14vh 6vw}
   <form id="lead-form" novalidate>
     <input id="lf-name" name="name" placeholder="ИМЯ" autocomplete="name" required>
     <input id="lf-phone" name="phone" placeholder="ТЕЛЕФОН" autocomplete="tel" required>
+    <input id="lf-address" name="address" placeholder="АДРЕС (УЛ., ДОМ, КВ.)" autocomplete="street-address">
     <select id="lf-service" name="service" required>
       <option value="Мелкий ремонт">МЕЛКИЙ РЕМОНТ</option>
       <option value="Стиральная машина">СТИРАЛЬНАЯ МАШИНА</option>
@@ -273,6 +274,7 @@ if(matchMedia('(prefers-reduced-motion: reduce)').matches){gsap.globalTimeline.t
         service_id: svc ? svc.id : 1,
         customer_name: name,
         customer_phone: phone,
+        address: document.getElementById('lf-address').value.trim() || 'Москва',
         comment: 'Заявка с лендинга МУЖ НА ЧАС · услуга: '+serviceText,
         date: new Date().toISOString().slice(0,10),
         time: '12:00',
